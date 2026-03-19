@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark light" />
+
+    <title>MaxVibe — приватный мод MAX</title>
+    <meta
+      name="description"
+      content="MaxVibe — приватная версия MAX: аналитика заблокирована, нет фоновой передачи данных, добавлено сохранение удалённых сообщений (❌)."
+    />
+
+    <meta property="og:title" content="MaxVibe — приватный мод MAX" />
+    <meta
+      property="og:description"
+      content="Аналитика заблокирована. Нет фоновой передачи данных. Сохранение удалённых сообщений (❌)."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://raw.githubusercontent.com/dorofo/max-vibe-assets/main/ic_launcher_max_vibe.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Manrope:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="icon" href="https://raw.githubusercontent.com/dorofo/max-vibe-assets/main/ic_launcher_max_vibe.png" />
+  </head>
+  <body>
+    <a class="skip" href="#content">Перейти к контенту</a>
+
+    <header class="topbar" role="banner">
+      <div class="topbar__inner">
+        <a class="brand" href="#" aria-label="MaxVibe — на главную">
+          <span class="brand__mark" aria-hidden="true"></span>
+          <span class="brand__text">MaxVibe</span>
+        </a>
+
+        <nav class="nav" aria-label="Навигация">
+          <a class="nav__link" href="#features">Фичи</a>
+          <a class="nav__link" href="#demo">Демо</a>
+          <a class="nav__link" href="#download">Скачать</a>
+          <a class="nav__link nav__link--tg" href="https://t.me/max_vibe" target="_blank" rel="noreferrer">
+            Telegram
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="content" class="page" role="main">
+      <section class="hero" aria-label="Вступление">
+        <div class="hero__bg" aria-hidden="true">
+          <div class="mesh mesh--a"></div>
+          <div class="mesh mesh--b"></div>
+          <div class="mesh mesh--c"></div>
+          <div class="grain"></div>
+        </div>
+
+        <div class="hero__inner">
+          <div class="hero__copy">
+            <p class="badge">
+              <span class="dot" aria-hidden="true"></span>
+              Приватный мод MAX
+            </p>
+
+            <h1 class="h1">
+              MAX без лишнего шума.
+              <span class="h1__accent">С концентратом приватности.</span>
+            </h1>
+
+            <p class="lead">
+              MaxVibe блокирует аналитику, убирает фоновую передачу данных и добавляет сохранение удалённых сообщений —
+              в чате они помечаются «❌».
+            </p>
+
+            <div class="cta">
+              <a class="btn btn--primary" href="#download" data-cta="download">
+                <span>Скачать APK</span>
+                <span class="btn__shine" aria-hidden="true"></span>
+              </a>
+              <a class="btn btn--ghost" href="#demo" data-cta="demo">Смотреть демо</a>
+            </div>
+
+            <dl class="stats" aria-label="Ключевые преимущества">
+              <div class="stats__item">
+                <dt>Аналитика</dt>
+                <dd>отключена</dd>
+              </div>
+              <div class="stats__item">
+                <dt>Удалённые</dt>
+                <dd>сохраняются</dd>
+              </div>
+              <div class="stats__item">
+                <dt>Фоновые</dt>
+                <dd>данные — нет</dd>
+              </div>
+            </dl>
+          </div>
+
+          <div class="hero__stage" aria-label="3D-элемент MaxVibe">
+            <div class="stage" data-stage>
+              <canvas class="stage__canvas" data-stage-canvas aria-label="3D логотип MaxVibe" role="img"></canvas>
+              <div class="stage__fallback" data-stage-fallback hidden aria-hidden="true">
+                Перетащите, чтобы повернуть<br />
+                Нажмите «Пауза», чтобы остановить
+              </div>
+              <button class="stage__ctrl" type="button" data-stage-ctrl aria-label="Пауза или запуск 3D">
+                Пауза
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="scrollhint" aria-hidden="true">
+          <span class="scrollhint__line"></span>
+          <span class="scrollhint__text">Прокрутите</span>
+        </div>
+      </section>
+
+      <section id="features" class="section features" aria-label="Особенности">
+        <div class="section__inner">
+          <header class="section__head">
+            <h2 class="h2">Приватность, но с эстетикой</h2>
+            <p class="sub">
+              Фокус на том, чтобы вы управляли тем, что приложение может и не может делать.
+            </p>
+          </header>
+
+          <div class="grid">
+            <article class="card card--glow">
+              <h3 class="h3">Аналитика — в ноль</h3>
+              <p class="p">
+                Ограничена работа систем сбора данных (VK Analytics, MyTracker и т.д.). Меньше «телеметрии» — больше
+                спокойствия.
+              </p>
+              <div class="micro" aria-hidden="true">
+                <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+              </div>
+            </article>
+
+            <article class="card">
+              <h3 class="h3">Сохранение удалённых сообщений</h3>
+              <p class="p">
+                Новое в <strong>1.1.4</strong>: удалённые сообщения в чате сохраняются и обозначаются «❌» — чтобы вы
+                видели, что было удалено.
+              </p>
+              <ul class="pillrow" aria-label="Изменения 1.1.4">
+                <li class="pill">❌ Mark</li>
+                <li class="pill">Saved</li>
+                <li class="pill">Chat</li>
+              </ul>
+            </article>
+
+            <article class="card">
+              <h3 class="h3">Нет фоновой передачи данных</h3>
+              <p class="p">
+                Никаких скрытых фоновых отправок о пользователе. Фокус на максимальной защите личной информации.
+              </p>
+              <div class="swatches" aria-hidden="true">
+                <span class="sw sw--violet"></span>
+                <span class="sw sw--pink"></span>
+                <span class="sw sw--white"></span>
+                <span class="sw sw--black"></span>
+              </div>
+            </article>
+
+            <article class="card">
+              <h3 class="h3">Проверка на VirusTotal</h3>
+              <p class="p">
+                Можно посмотреть результаты проверки APK сервисом VirusTotal — прозрачно и спокойно.
+              </p>
+              <p class="linksline">
+                <a
+                  class="link"
+                  href="https://www.virustotal.com/gui/file/34e647894cbf111e1ab5a302ec98ce04978767c1a91076a39223fd0a11208495?nocache=1"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Открыть отчёт VirusTotal
+                </a>
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="demo" class="section demo" aria-label="Демонстрация">
+        <div class="section__inner">
+          <header class="section__head">
+            <h2 class="h2">Демо: удалённые сообщения (1.1.4)</h2>
+            <p class="sub">Нажмите «Удалить» на сообщении — оно останется в чате с меткой «❌».</p>
+          </header>
+
+          <div class="demo__layout">
+            <div class="phone" aria-label="Прототип интерфейса">
+              <div class="phone__glass" aria-hidden="true"></div>
+              <div class="phone__screen" role="region" aria-label="Экран демо">
+                <div class="phone__top">
+                  <span class="phone__title">MAX</span>
+                  <span class="phone__pill">MaxVibe 1.1.4</span>
+                </div>
+
+                <div class="chat" aria-label="Чат демо" data-chat>
+                  <div class="chat__meta" aria-hidden="true">Сегодня</div>
+
+                  <div class="msg msg--in" data-msg="0">
+                    <div class="msg__bubble">
+                      <div class="msg__text">Скинь ссылку на релиз?</div>
+                      <div class="msg__actions">
+                        <button class="msg__btn" type="button" data-delete>
+                          Удалить
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="msg msg--out" data-msg="1">
+                    <div class="msg__bubble">
+                      <div class="msg__text">Вот: GitHub → releases/latest</div>
+                      <div class="msg__actions">
+                        <button class="msg__btn" type="button" data-delete>
+                          Удалить
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="msg msg--in" data-msg="2">
+                    <div class="msg__bubble">
+                      <div class="msg__text">Ок, спасибо</div>
+                      <div class="msg__actions">
+                        <button class="msg__btn" type="button" data-delete>
+                          Удалить
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="toast" role="status" aria-live="polite" data-demo-toast>
+                  Подсказка: нажмите «Удалить» на любом сообщении.
+                </div>
+              </div>
+            </div>
+
+            <aside class="steps" aria-label="Информация о релизе">
+              <article class="step" data-active="true">
+                <h3 class="h3">Обновление 1.1.4</h3>
+                <p class="p">Добавлено сохранение удалённых сообщений. Удалённые сообщения помечаются «❌».</p>
+              </article>
+              <article class="step">
+                <h3 class="h3">Напоминание</h3>
+                <p class="p">Заблокирована аналитика и нет фоновой передачи данных о пользователе.</p>
+              </article>
+              <article class="step">
+                <h3 class="h3">Подписка на авторов</h3>
+                <p class="p">
+                  <a class="link" href="https://t.me/max_vibe" target="_blank" rel="noreferrer">@max_vibe</a>
+                </p>
+              </article>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section id="download" class="section download" aria-label="Скачать">
+        <div class="section__inner">
+          <header class="section__head">
+            <h2 class="h2">Скачать актуальный APK</h2>
+            <p class="sub">
+              Кнопка ниже автоматически берёт последнюю сборку из релизов GitHub (если `.apk` есть в assets).
+            </p>
+          </header>
+
+          <div class="download__panel" role="region" aria-label="Панель скачивания">
+            <div class="download__left">
+              <p class="download__title">MaxVibe</p>
+              <p class="download__meta" data-release-meta>Проверяем latest release…</p>
+            </div>
+            <div class="download__right">
+              <a class="btn btn--primary" data-download-btn href="https://github.com/dorofo/max-vibe/releases" target="_blank" rel="noreferrer">
+                <span data-download-label>Открыть релизы</span>
+                <span class="btn__shine" aria-hidden="true"></span>
+              </a>
+              <a class="btn btn--ghost" href="https://t.me/max_vibe" target="_blank" rel="noreferrer">t.me/max_vibe</a>
+            </div>
+          </div>
+
+          <p class="fineprint">
+            Важно: проект предоставляется «как есть». Перед установкой проверяйте APK и учитывайте условия использования
+            оригинального приложения.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer" role="contentinfo">
+      <div class="footer__inner">
+        <p class="footer__brand">
+          <span class="brand__mark" aria-hidden="true"></span>
+          <span>MaxVibe</span>
+        </p>
+        <p class="footer__links">
+          <a href="https://github.com/dorofo/max-vibe" target="_blank" rel="noreferrer">GitHub</a>
+          <span aria-hidden="true">·</span>
+          <a href="https://t.me/max_vibe" target="_blank" rel="noreferrer">Telegram</a>
+        </p>
+      </div>
+    </footer>
+
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>
