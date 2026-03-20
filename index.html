@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="dark light" />
 
-    <title>MaxVibe — приватный мод MAX</title>
+    <title>MaxVibe 2.0.0 — приватный мод MAX</title>
     <meta
       name="description"
-      content="MaxVibe — приватная версия MAX: аналитика заблокирована, нет фоновой передачи данных, добавлено сохранение удалённых сообщений (❌)."
+      content="MaxVibe 2.0.0: шифрование чата AES, антиудаление сообщений и максимальная приватность без слежки."
     />
 
-    <meta property="og:title" content="MaxVibe — приватный мод MAX" />
+    <meta property="og:title" content="MaxVibe 2.0.0 — приватный мод MAX" />
     <meta
       property="og:description"
-      content="Аналитика заблокирована. Нет фоновой передачи данных. Сохранение удалённых сообщений (❌)."
+      content="AES-шифрование + антиудаление сообщений. Телеметрия и трекеры ограничены/остановлены."
     />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="https://raw.githubusercontent.com/dorofo/max-vibe-assets/main/ic_launcher_max_vibe.png" />
@@ -64,17 +64,17 @@
           <div class="hero__copy">
             <p class="badge">
               <span class="dot" aria-hidden="true"></span>
-              Приватный мод MAX
+              MaxVibe 2.0.0
             </p>
 
             <h1 class="h1">
-              MAX без лишнего шума.
-              <span class="h1__accent">С концентратом приватности.</span>
+              MAX с шифрованием.
+              <span class="h1__accent">И без слежки.</span>
             </h1>
 
             <p class="lead">
-              MaxVibe блокирует аналитику, убирает фоновую передачу данных и добавляет сохранение удалённых сообщений —
-              в чате они помечаются «❌».
+              MaxVibe 2.0.0: AES-шифрование диалога, антиудаление сообщений и ограничение/остановка телеметрии
+              (telemetry/crash), включая внешние аплоады.
             </p>
 
             <div class="cta">
@@ -87,16 +87,20 @@
 
             <dl class="stats" aria-label="Ключевые преимущества">
               <div class="stats__item">
-                <dt>Аналитика</dt>
-                <dd>отключена</dd>
+                <dt>Шифрование чата</dt>
+                <dd>AES</dd>
               </div>
               <div class="stats__item">
-                <dt>Удалённые</dt>
-                <dd>сохраняются</dd>
+                <dt>Антиудаление</dt>
+                <dd>сообщения не исчезают</dd>
               </div>
               <div class="stats__item">
-                <dt>Фоновые</dt>
-                <dd>данные — нет</dd>
+                <dt>Трекинг</dt>
+                <dd>ограничен/остановлен</dd>
+              </div>
+              <div class="stats__item">
+                <dt>Фоновые данные</dt>
+                <dd>не отправляются</dd>
               </div>
             </dl>
           </div>
@@ -124,7 +128,7 @@
       <section id="features" class="section features" aria-label="Особенности">
         <div class="section__inner">
           <header class="section__head">
-            <h2 class="h2">Приватность, но с эстетикой</h2>
+            <h2 class="h2">2.0.0: приватность + шифрование</h2>
             <p class="sub">
               Фокус на том, чтобы вы управляли тем, что приложение может и не может делать.
             </p>
@@ -132,10 +136,20 @@
 
           <div class="grid">
             <article class="card card--glow">
-              <h3 class="h3">Аналитика — в ноль</h3>
+              <h3 class="h3">📝 Шифрование чата (AES)</h3>
               <p class="p">
-                Ограничена работа систем сбора данных (VK Analytics, MyTracker и т.д.). Меньше «телеметрии» — больше
-                спокойствия.
+                Диалог шифруется ключом AES. <strong>Ключи должны быть одинаковые</strong> у вас обоих — шифрование
+                работает корректно только если оба собеседника используют MaxVibe.
+                <br /><br />
+                Как использовать:
+                <br />
+                1) Настройки MaxVibe → включите шифрование → Сгенерируйте ключ → Скопировать ключ
+                <br />
+                2) Отправьте ключ собеседнику
+                <br />
+                3) Собеседник: включает шифрование → Вставить ключ
+                <br />
+                <span style="opacity: 0.9;">💾 Сохранить ключ / 📥загрузить ключ заново</span>
               </p>
               <div class="micro" aria-hidden="true">
                 <span class="bar"></span><span class="bar"></span><span class="bar"></span>
@@ -143,22 +157,10 @@
             </article>
 
             <article class="card">
-              <h3 class="h3">Сохранение удалённых сообщений</h3>
+              <h3 class="h3">❌ Антиудаление сообщений</h3>
               <p class="p">
-                Новое в <strong>1.1.4</strong>: удалённые сообщения в чате сохраняются и обозначаются «❌» — чтобы вы
-                видели, что было удалено.
-              </p>
-              <ul class="pillrow" aria-label="Изменения 1.1.4">
-                <li class="pill">❌ Mark</li>
-                <li class="pill">Saved</li>
-                <li class="pill">Chat</li>
-              </ul>
-            </article>
-
-            <article class="card">
-              <h3 class="h3">Нет фоновой передачи данных</h3>
-              <p class="p">
-                Никаких скрытых фоновых отправок о пользователе. Фокус на максимальной защите личной информации.
+                Сообщения не исчезают даже если их пытаются удалить. В демо они помечаются «❌», чтобы вы видели,
+                что произошло в чате.
               </p>
               <div class="swatches" aria-hidden="true">
                 <span class="sw sw--violet"></span>
@@ -169,7 +171,33 @@
             </article>
 
             <article class="card">
-              <h3 class="h3">Проверка на VirusTotal</h3>
+              <h3 class="h3">🕵️ Приватность и трекеры</h3>
+              <p class="p">
+                Ограничена/остановлена отправка telemetry/crash и внешних аплоадов, которые ранее светились в сетевых
+                логах, включая точки, связанные с: <strong>sdk-api.apptracer.ru</strong>, <strong>sentry-vk-cloud</strong>,
+                <strong>ext-bots.max.ru</strong>, <strong>top-fwz1.mail.ru</strong>.
+                <br />
+                Также заблокирована/ограничена аналитика (VK Analytics, MyTracker и другие системы сбора данных).
+              </p>
+            </article>
+
+            <article class="card">
+              <h3 class="h3">🚫 Нет VPN / host reachability проверки</h3>
+              <p class="p">
+                Больше не делается проверка признаков VPN и доступности хостов. Нет фоновой передачи данных о
+                пользователе.
+              </p>
+            </article>
+
+            <article class="card">
+              <h3 class="h3">⚡ Ускорение загрузки медиа</h3>
+              <p class="p">
+                Видео грузится и подгружается быстрее — без лишних ожиданий.
+              </p>
+            </article>
+
+            <article class="card">
+              <h3 class="h3">🛡️ Проверка на VirusTotal</h3>
               <p class="p">
                 Можно посмотреть результаты проверки APK сервисом VirusTotal — прозрачно и спокойно.
               </p>
@@ -184,6 +212,21 @@
                 </a>
               </p>
             </article>
+
+            <article class="card">
+              <h3 class="h3">🔁 Управление модом</h3>
+              <p class="p">
+                Очистка кеша мода снижает нагрузку. Перезапуск приложения нужен при включении/отключении функций,
+                чтобы мод и приложение не работали в «подвешенном» состоянии.
+              </p>
+            </article>
+
+            <article class="card">
+              <h3 class="h3">📜 Пользовательское соглашение</h3>
+              <p class="p">
+                При старте добавлено пользовательское соглашение: принимаете — и продолжаете пользоваться модом.
+              </p>
+            </article>
           </div>
         </div>
       </section>
@@ -191,8 +234,12 @@
       <section id="demo" class="section demo" aria-label="Демонстрация">
         <div class="section__inner">
           <header class="section__head">
-            <h2 class="h2">Демо: удалённые сообщения (1.1.4)</h2>
-            <p class="sub">Нажмите «Удалить» на сообщении — оно останется в чате с меткой «❌».</p>
+            <h2 class="h2">Демо: антиудаление сообщений (2.0.0)</h2>
+            <p class="sub">
+              Нажмите «Удалить» на сообщении — оно останется в чате с меткой «❌».
+              Шифрование AES включается по общему ключу: в защищённом режиме переписка работает только если ключи
+              совпадают у вас обоих.
+            </p>
           </header>
 
           <div class="demo__layout">
@@ -201,7 +248,7 @@
               <div class="phone__screen" role="region" aria-label="Экран демо">
                 <div class="phone__top">
                   <span class="phone__title">MAX</span>
-                  <span class="phone__pill">MaxVibe 1.1.4</span>
+                  <span class="phone__pill">MaxVibe 2.0.0</span>
                 </div>
 
                 <div class="chat" aria-label="Чат демо" data-chat>
@@ -209,7 +256,7 @@
 
                   <div class="msg msg--in" data-msg="0">
                     <div class="msg__bubble">
-                      <div class="msg__text">Скинь ссылку на релиз?</div>
+                      <div class="msg__text">Сгенерируй ключ шифрования?</div>
                       <div class="msg__actions">
                         <button class="msg__btn" type="button" data-delete>
                           Удалить
@@ -220,7 +267,7 @@
 
                   <div class="msg msg--out" data-msg="1">
                     <div class="msg__bubble">
-                      <div class="msg__text">Вот: GitHub → releases/latest</div>
+                      <div class="msg__text">Вот ключ AES 🔑 (и да, он должен совпасть)</div>
                       <div class="msg__actions">
                         <button class="msg__btn" type="button" data-delete>
                           Удалить
@@ -231,7 +278,7 @@
 
                   <div class="msg msg--in" data-msg="2">
                     <div class="msg__bubble">
-                      <div class="msg__text">Ок, спасибо</div>
+                      <div class="msg__text">Ок! Вставляю ключ и включаю шифрование.</div>
                       <div class="msg__actions">
                         <button class="msg__btn" type="button" data-delete>
                           Удалить
@@ -242,19 +289,23 @@
                 </div>
 
                 <div class="toast" role="status" aria-live="polite" data-demo-toast>
-                  Подсказка: нажмите «Удалить» на любом сообщении.
+                  Подсказка: нажмите «Удалить» на любом сообщении — оно останется с меткой «❌».
                 </div>
               </div>
             </div>
 
             <aside class="steps" aria-label="Информация о релизе">
               <article class="step" data-active="true">
-                <h3 class="h3">Обновление 1.1.4</h3>
-                <p class="p">Добавлено сохранение удалённых сообщений. Удалённые сообщения помечаются «❌».</p>
+                <h3 class="h3">Антиудаление 2.0.0</h3>
+                <p class="p">Сообщения не исчезают даже после удаления — помечаются «❌».</p>
               </article>
               <article class="step">
-                <h3 class="h3">Напоминание</h3>
-                <p class="p">Заблокирована аналитика и нет фоновой передачи данных о пользователе.</p>
+                <h3 class="h3">Шифрование AES</h3>
+                <p class="p">Включите шифрование, передайте ключ и вставьте его у собеседника.</p>
+              </article>
+              <article class="step">
+                <h3 class="h3">Важно про ключи</h3>
+                <p class="p">Ключи должны совпадать у обоих — только тогда переписка будет защищена.</p>
               </article>
               <article class="step">
                 <h3 class="h3">Подписка на авторов</h3>
@@ -293,6 +344,11 @@
           <p class="fineprint">
             Важно: проект предоставляется «как есть». Перед установкой проверяйте APK и учитывайте условия использования
             оригинального приложения.
+            <br />
+            При старте добавлено пользовательское соглашение: принимаете — и продолжаете пользоваться модом.
+            <a class="link" href="https://legal.max.ru/ps" target="_blank" rel="noreferrer" style="margin-left: 10px;">
+              Открыть соглашение
+            </a>
           </p>
         </div>
       </section>
