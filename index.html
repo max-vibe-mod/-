@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="dark light" />
 
-    <title>MaxVibe 2.0.0 — приватный мод MAX</title>
+    <title>MaxVibe 2.1.1 — приватный мод MAX</title>
     <meta
       name="description"
-      content="MaxVibe 2.0.0: шифрование чата AES, антиудаление сообщений и максимальная приватность без слежки."
+      content="MaxVibe 2.1.1: оптимизация батареи, улучшения проверки слежки, открытие PDF, AES-шифрование чата и антиудаление сообщений."
     />
 
-    <meta property="og:title" content="MaxVibe 2.0.0 — приватный мод MAX" />
+    <meta property="og:title" content="MaxVibe 2.1.1 — приватный мод MAX" />
     <meta
       property="og:description"
-      content="AES-шифрование + антиудаление сообщений. Телеметрия и трекеры ограничены/остановлены."
+      content="2.1.1: батарея, проверка слежки, PDF. Плюс AES, антиудаление — телеметрия и трекеры ограничены/остановлены."
     />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="https://raw.githubusercontent.com/dorofo/max-vibe-assets/main/ic_launcher_max_vibe.png" />
@@ -64,7 +64,7 @@
           <div class="hero__copy">
             <p class="badge">
               <span class="dot" aria-hidden="true"></span>
-              MaxVibe 2.0.0
+              MaxVibe 2.1.1
             </p>
 
             <h1 class="h1">
@@ -73,8 +73,9 @@
             </h1>
 
             <p class="lead">
-              MaxVibe 2.0.0: AES-шифрование диалога, антиудаление сообщений и ограничение/остановка телеметрии
-              (telemetry/crash), включая внешние аплоады.
+              MaxVibe 2.1.1: оптимизация батареи, улучшения проверки слежки и открытие документов PDF. Как и раньше —
+              AES-шифрование диалога, антиудаление сообщений и ограничение/остановка телеметрии (telemetry/crash),
+              включая внешние аплоады.
             </p>
 
             <div class="cta">
@@ -128,28 +129,35 @@
       <section id="features" class="section features" aria-label="Особенности">
         <div class="section__inner">
           <header class="section__head">
-            <h2 class="h2">2.0.0: приватность + шифрование</h2>
+            <h2 class="h2">2.1.1: приватность + шифрование</h2>
             <p class="sub">
-              Фокус на том, чтобы вы управляли тем, что приложение может и не может делать.
+              В этом релизе — бережнее батарея, точнее проверка слежки и поддержка PDF. Плюс фокус на том, чтобы вы
+              управляли тем, что приложение может и не может делать.
             </p>
           </header>
 
           <div class="grid">
+            <article class="card">
+              <h3 class="h3">🔋 Оптимизация батареи</h3>
+              <p class="p">Меньше расход заряда и нагрузка в фоне.</p>
+            </article>
+
+            <article class="card">
+              <h3 class="h3">🔎 Улучшения проверки слежки</h3>
+              <p class="p">Доработана логика проверки — точнее и надёжнее выявление подозрительной активности.</p>
+            </article>
+
+            <article class="card">
+              <h3 class="h3">📄 Документы PDF</h3>
+              <p class="p">Теперь можно открыть документы в формате PDF прямо в приложении.</p>
+            </article>
+
             <article class="card card--glow">
               <h3 class="h3">📝 Шифрование чата (AES)</h3>
               <p class="p">
-                Диалог шифруется ключом AES. <strong>Ключи должны быть одинаковые</strong> у вас обоих — шифрование
-                работает корректно только если оба собеседника используют MaxVibe.
-                <br /><br />
-                Как использовать:
-                <br />
-                1) Настройки MaxVibe → включите шифрование → Сгенерируйте ключ → Скопировать ключ
-                <br />
-                2) Отправьте ключ собеседнику
-                <br />
-                3) Собеседник: включает шифрование → Вставить ключ
-                <br />
-                <span style="opacity: 0.9;">💾 Сохранить ключ / 📥загрузить ключ заново</span>
+                Диалог шифруется по AES. Включите шифрование в <strong>настройках MaxVibe</strong> — ключи и обмен
+                подставляются <strong>автоматически</strong>, без ручного создания, копирования и сохранения ключей.
+                Корректная работа возможна, когда <strong>оба собеседника</strong> в переписке используют MaxVibe.
               </p>
               <div class="micro" aria-hidden="true">
                 <span class="bar"></span><span class="bar"></span><span class="bar"></span>
@@ -234,11 +242,10 @@
       <section id="demo" class="section demo" aria-label="Демонстрация">
         <div class="section__inner">
           <header class="section__head">
-            <h2 class="h2">Демо: антиудаление сообщений (2.0.0)</h2>
+            <h2 class="h2">Демо: антиудаление сообщений (2.1.1)</h2>
             <p class="sub">
-              Нажмите «Удалить» на сообщении — оно останется в чате с меткой «❌».
-              Шифрование AES включается по общему ключу: в защищённом режиме переписка работает только если ключи
-              совпадают у вас обоих.
+              Нажмите «Удалить» на сообщении — оно останется в чате с меткой «❌». Шифрование AES включается в настройках
+              MaxVibe и обслуживается автоматически; в защищённом режиме оба собеседника должны использовать MaxVibe.
             </p>
           </header>
 
@@ -248,7 +255,7 @@
               <div class="phone__screen" role="region" aria-label="Экран демо">
                 <div class="phone__top">
                   <span class="phone__title">MAX</span>
-                  <span class="phone__pill">MaxVibe 2.0.0</span>
+                  <span class="phone__pill">MaxVibe 2.1.1</span>
                 </div>
 
                 <div class="chat" aria-label="Чат демо" data-chat>
@@ -256,7 +263,7 @@
 
                   <div class="msg msg--in" data-msg="0">
                     <div class="msg__bubble">
-                      <div class="msg__text">Сгенерируй ключ шифрования?</div>
+                      <div class="msg__text">Включил шифрование в настройках MaxVibe</div>
                       <div class="msg__actions">
                         <button class="msg__btn" type="button" data-delete>
                           Удалить
@@ -267,7 +274,7 @@
 
                   <div class="msg msg--out" data-msg="1">
                     <div class="msg__bubble">
-                      <div class="msg__text">Вот ключ AES 🔑 (и да, он должен совпасть)</div>
+                      <div class="msg__text">У меня тоже всё автоматом в настройках</div>
                       <div class="msg__actions">
                         <button class="msg__btn" type="button" data-delete>
                           Удалить
@@ -278,7 +285,7 @@
 
                   <div class="msg msg--in" data-msg="2">
                     <div class="msg__bubble">
-                      <div class="msg__text">Ок! Вставляю ключ и включаю шифрование.</div>
+                      <div class="msg__text">Отлично, без ручных ключей удобно</div>
                       <div class="msg__actions">
                         <button class="msg__btn" type="button" data-delete>
                           Удалить
@@ -296,16 +303,19 @@
 
             <aside class="steps" aria-label="Информация о релизе">
               <article class="step" data-active="true">
-                <h3 class="h3">Антиудаление 2.0.0</h3>
+                <h3 class="h3">Антиудаление 2.1.1</h3>
                 <p class="p">Сообщения не исчезают даже после удаления — помечаются «❌».</p>
               </article>
               <article class="step">
                 <h3 class="h3">Шифрование AES</h3>
-                <p class="p">Включите шифрование, передайте ключ и вставьте его у собеседника.</p>
+                <p class="p">
+                  В настройках MaxVibe включите шифрование — ключи и обмен настраиваются автоматически, без ручного
+                  создания и сохранения.
+                </p>
               </article>
               <article class="step">
-                <h3 class="h3">Важно про ключи</h3>
-                <p class="p">Ключи должны совпадать у обоих — только тогда переписка будет защищена.</p>
+                <h3 class="h3">Оба в MaxVibe</h3>
+                <p class="p">Защищённый диалог рассчитан на переписку между двумя пользователями MaxVibe.</p>
               </article>
               <article class="step">
                 <h3 class="h3">Подписка на авторов</h3>
