@@ -1,398 +1,545 @@
 <!doctype html>
 <html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="color-scheme" content="dark light" />
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="color-scheme" content="dark light" />
 
-    <title>MaxVibe 2.2.1 — приватный мод MAX</title>
-    <meta
-      name="description"
-      content="MaxVibe 2.2.1: отправка видео, размер шрифта +10–100%, APK в чате (только MaxVibe), исправление PDF. AES, антиудаление, приватность."
-    />
+		<title>MaxVibe 3.0.0 — глобальное обновление</title>
+		<meta
+			name="description"
+			content="MaxVibe 3.0.0: AESRU-шифрование, режим призрака, нечиталка, скрытие 'печатает...', открытие музыки/PDF, защита от скама, эмодзи-статусы и много фиксов."
+		/>
 
-    <meta property="og:title" content="MaxVibe 2.2.1 — приватный мод MAX" />
-    <meta
-      property="og:description"
-      content="2.2.1: видео, шрифт, APK между MaxVibe, PDF. Плюс AES, антиудаление — телеметрия и трекеры ограничены/остановлены."
-    />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://raw.githubusercontent.com/dorofo/max-vibe-assets/main/ic_launcher_max_vibe.png" />
-    <meta name="twitter:card" content="summary_large_image" />
+		<meta property="og:title" content="MaxVibe 3.0.0 — глобальное обновление" />
+		<meta
+			property="og:description"
+			content="3.0.0: AESRU, режим призрака, нечиталка, скрытие ботов, антискам (бета), эмодзи-статусы (бета), улучшенное сохранение сообщений и медиа."
+		/>
+		<meta property="og:type" content="website" />
+		<meta
+			property="og:image"
+			content="https://raw.githubusercontent.com/dorofo/max-vibe-assets/main/ic_launcher_max_vibe.png"
+		/>
+		<meta name="twitter:card" content="summary_large_image" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Manrope:wght@400;600;700&display=swap"
-      rel="stylesheet"
-    />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Manrope:wght@400;600;700&display=swap"
+			rel="stylesheet"
+		/>
 
-    <link rel="stylesheet" href="./styles.css" />
-    <link rel="icon" href="https://raw.githubusercontent.com/dorofo/max-vibe-assets/main/ic_launcher_max_vibe.png" />
-  </head>
-  <body>
-    <a class="skip" href="#content">Перейти к контенту</a>
+		<link rel="stylesheet" href="./styles.css" />
+		<link
+			rel="icon"
+			href="https://raw.githubusercontent.com/dorofo/max-vibe-assets/main/ic_launcher_max_vibe.png"
+		/>
+	</head>
+	<body>
+		<a class="skip" href="#content">Перейти к контенту</a>
 
-    <header class="topbar" role="banner">
-      <div class="topbar__inner">
-        <a class="brand" href="#" aria-label="MaxVibe — на главную">
-          <span class="brand__mark" aria-hidden="true"></span>
-          <span class="brand__text">MaxVibe</span>
-        </a>
+		<header class="topbar" role="banner">
+			<div class="topbar__inner">
+				<a class="brand" href="#" aria-label="MaxVibe — на главную">
+					<span class="brand__mark" aria-hidden="true"></span>
+					<span class="brand__text">MaxVibe</span>
+				</a>
 
-        <nav class="nav" aria-label="Навигация">
-          <a class="nav__link" href="#features">Фичи</a>
-          <a class="nav__link" href="#demo">Демо</a>
-          <a class="nav__link" href="#download">Скачать</a>
-          <a class="nav__link nav__link--tg" href="https://t.me/max_vibe" target="_blank" rel="noreferrer">
-            Telegram
-          </a>
-        </nav>
-      </div>
-    </header>
+				<nav class="nav" aria-label="Навигация">
+					<a class="nav__link" href="#features">Фичи</a>
+					<a class="nav__link" href="#demo">Демо</a>
+					<a class="nav__link" href="#download">Скачать</a>
+					<a class="nav__link" href="#community">Новости</a>
+					<a
+						class="nav__link nav__link--tg"
+						href="https://t.me/max_vibe"
+						target="_blank"
+						rel="noreferrer"
+					>
+						Telegram
+					</a>
+				</nav>
+			</div>
+		</header>
 
-    <main id="content" class="page" role="main">
-      <section class="hero" aria-label="Вступление">
-        <div class="hero__bg" aria-hidden="true">
-          <div class="mesh mesh--a"></div>
-          <div class="mesh mesh--b"></div>
-          <div class="mesh mesh--c"></div>
-          <div class="grain"></div>
-        </div>
+		<main id="content" class="page" role="main">
+			<section class="hero" aria-label="Вступление">
+				<div class="hero__bg" aria-hidden="true">
+					<div class="mesh mesh--a"></div>
+					<div class="mesh mesh--b"></div>
+					<div class="mesh mesh--c"></div>
+					<div class="grain"></div>
+				</div>
 
-        <div class="hero__inner">
-          <div class="hero__copy">
-            <p class="badge">
-              <span class="dot" aria-hidden="true"></span>
-              MaxVibe 2.2.1
-            </p>
+				<div class="hero__inner">
+					<div class="hero__copy">
+						<p class="badge">
+							<span class="dot" aria-hidden="true"></span>
+							Global Update 3.0.0
+						</p>
 
-            <h1 class="h1">
-              MAX с шифрованием.
-              <span class="h1__accent">И без слежки.</span>
-            </h1>
+						<h1 class="h1">
+							MaxVibe 3.0.0.
+							<span class="h1__accent">Новый уровень приватности.</span>
+						</h1>
 
-            <p class="lead">
-              MaxVibe 2.2.1: оптимизировали отправку видео, добавили шаги размера шрифта +10%, +25%, +50%, +75% и +100%,
-              обмен APK в чате (только между пользователями нашей версии) и исправили открытие PDF. Как и раньше —
-              AES-шифрование диалога, антиудаление сообщений и ограничение/остановка телеметрии (telemetry/crash),
-              включая внешние аплоады.
-            </p>
+						<p class="lead">
+							В релизе 3.0.0 добавили абсолютно новое русское шифрование
+							<strong>AESRU</strong> (сообщения маскируются под фразы на
+							русском), режим призрака, нечиталку и скрытие статуса
+							«печатает...». Также доработали сохранение удалённых сообщений и
+							медиа в галерею, добавили открытие музыки и PDF, скрытие ботов в
+							списке чатов, предупреждения о возможных мошенниках (бета), смену
+							иконки приложения, эмодзи-статусы (бета) и множество других
+							фиксов.
+						</p>
 
-            <div class="cta">
-              <a class="btn btn--primary" href="#download" data-cta="download">
-                <span>Скачать APK</span>
-                <span class="btn__shine" aria-hidden="true"></span>
-              </a>
-              <a class="btn btn--ghost" href="#demo" data-cta="demo">Смотреть демо</a>
-            </div>
+						<div class="cta">
+							<a class="btn btn--primary" href="#download" data-cta="download">
+								<span>Скачать APK</span>
+								<span class="btn__shine" aria-hidden="true"></span>
+							</a>
+							<a class="btn btn--ghost" href="#demo" data-cta="demo"
+								>Смотреть демо</a
+							>
+						</div>
 
-            <dl class="stats" aria-label="Ключевые преимущества">
-              <div class="stats__item">
-                <dt>Шифрование чата</dt>
-                <dd>AES</dd>
-              </div>
-              <div class="stats__item">
-                <dt>Антиудаление</dt>
-                <dd>сообщения не исчезают</dd>
-              </div>
-              <div class="stats__item">
-                <dt>Трекинг</dt>
-                <dd>ограничен/остановлен</dd>
-              </div>
-              <div class="stats__item">
-                <dt>Фоновые данные</dt>
-                <dd>не отправляются</dd>
-              </div>
-            </dl>
-          </div>
+						<dl class="stats" aria-label="Ключевые преимущества">
+							<div class="stats__item">
+								<dt>Шифрование чата</dt>
+								<dd>AESRU</dd>
+							</div>
+							<div class="stats__item">
+								<dt>Режим призрака</dt>
+								<dd>больше контроля приватности</dd>
+							</div>
+							<div class="stats__item">
+								<dt>Нечиталка</dt>
+								<dd>читайте без отметок</dd>
+							</div>
+							<div class="stats__item">
+								<dt>3 месяца проекта</dt>
+								<dd>с 25.01 до 25.04.2026</dd>
+							</div>
+						</dl>
+					</div>
 
-          <div class="hero__stage" aria-label="3D-элемент MaxVibe">
-            <div class="stage" data-stage>
-              <canvas class="stage__canvas" data-stage-canvas aria-label="3D логотип MaxVibe" role="img"></canvas>
-              <div class="stage__fallback" data-stage-fallback hidden aria-hidden="true">
-                Перетащите, чтобы повернуть<br />
-                Нажмите «Пауза», чтобы остановить
-              </div>
-              <button class="stage__ctrl" type="button" data-stage-ctrl aria-label="Пауза или запуск 3D">
-                Пауза
-              </button>
-            </div>
-          </div>
-        </div>
+					<div class="hero__stage" aria-label="3D-элемент MaxVibe">
+						<div class="stage" data-stage>
+							<canvas
+								class="stage__canvas"
+								data-stage-canvas
+								aria-label="3D логотип MaxVibe"
+								role="img"
+							></canvas>
+							<div
+								class="stage__fallback"
+								data-stage-fallback
+								hidden
+								aria-hidden="true"
+							>
+								Перетащите, чтобы повернуть<br />
+								Нажмите «Пауза», чтобы остановить
+							</div>
+							<button
+								class="stage__ctrl"
+								type="button"
+								data-stage-ctrl
+								aria-label="Пауза или запуск 3D"
+							>
+								Пауза
+							</button>
+						</div>
+					</div>
+				</div>
 
-        <div class="scrollhint" aria-hidden="true">
-          <span class="scrollhint__line"></span>
-          <span class="scrollhint__text">Прокрутите</span>
-        </div>
-      </section>
+				<div class="scrollhint" aria-hidden="true">
+					<span class="scrollhint__line"></span>
+					<span class="scrollhint__text">Прокрутите</span>
+				</div>
+			</section>
 
-      <section id="features" class="section features" aria-label="Особенности">
-        <div class="section__inner">
-          <header class="section__head">
-            <h2 class="h2">2.2.1: приватность + шифрование</h2>
-            <p class="sub">
-              В этом релизе — быстрее и надёжнее отправка видео, гибкий размер шрифта, обмен APK только между MaxVibe и
-              исправление открытия PDF. Плюс фокус на том, чтобы вы управляли тем, что приложение может и не может делать.
-            </p>
-          </header>
+			<section id="features" class="section features" aria-label="Особенности">
+				<div class="section__inner">
+					<header class="section__head">
+						<h2 class="h2">3.0.0: глобальное обновление MaxVibe</h2>
+						<p class="sub">
+							Это самый большой релиз: новое технологическое шифрование AESRU,
+							расширенные приватные режимы, улучшенная работа с файлами и медиа,
+							бета-функции безопасности и ещё десятки доработок по стабильности.
+						</p>
+					</header>
 
-          <div class="grid">
-            <article class="card">
-              <h3 class="h3">🔋 Оптимизация батареи</h3>
-              <p class="p">Меньше расход заряда и нагрузка в фоне.</p>
-            </article>
+					<div class="grid">
+						<article class="card">
+							<h3 class="h3">🧠 AESRU: русское шифрование</h3>
+							<p class="p">
+								Новый режим защиты: сообщения маскируются под естественные фразы
+								на русском языке.
+							</p>
+						</article>
 
-            <article class="card">
-              <h3 class="h3">🔎 Улучшения проверки слежки</h3>
-              <p class="p">Доработана логика проверки — точнее и надёжнее выявление подозрительной активности.</p>
-            </article>
+						<article class="card">
+							<h3 class="h3">👻 Режим призрака</h3>
+							<p class="p">
+								Расширенная приватность в чате: меньше цифровых следов в
+								повседневной переписке.
+							</p>
+						</article>
 
-            <article class="card">
-              <h3 class="h3">📄 PDF-документы</h3>
-              <p class="p">Исправили баг: PDF снова открываются в приложении как положено.</p>
-            </article>
+						<article class="card">
+							<h3 class="h3">📭 Нечиталка сообщений</h3>
+							<p class="p">
+								Можно просматривать новые сообщения без отправки лишних
+								признаков активности.
+							</p>
+						</article>
 
-            <article class="card">
-              <h3 class="h3">🎬 Отправка видео</h3>
-              <p class="p">Оптимизировали и улучшили отправку видео — стабильнее и приятнее в использовании.</p>
-            </article>
+						<article class="card">
+							<h3 class="h3">⌨️ Скрытие «печатает...»</h3>
+							<p class="p">
+								Отдельная настройка для тех, кто хочет писать сообщения без
+								индикации набора.
+							</p>
+						</article>
 
-            <article class="card">
-              <h3 class="h3">🔤 Размер шрифта</h3>
-              <p class="p">
-                Изменили настройку шрифта: доступны шаги увеличения <strong>+10%</strong>, <strong>+25%</strong>,
-                <strong>+50%</strong>, <strong>+75%</strong> и <strong>+100%</strong>.
-              </p>
-            </article>
+						<article class="card">
+							<h3 class="h3">🗂️ Улучшенное сохранение удалённых</h3>
+							<p class="p">
+								Функция антиудаления доработана: удалённые сообщения сохраняются
+								надёжнее и понятнее.
+							</p>
+						</article>
 
-            <article class="card">
-              <h3 class="h3">📦 APK в чате</h3>
-              <p class="p">
-                Можно отправлять и получать APK-файлы в переписке — <strong>только если оба используют нашу версию</strong>
-                MaxVibe.
-              </p>
-            </article>
+						<article class="card">
+							<h3 class="h3">🎵 Открытие музыки и PDF</h3>
+							<p class="p">
+								Файлы открываются стабильнее и быстрее прямо в привычном
+								сценарии использования.
+							</p>
+						</article>
 
-            <article class="card card--glow">
-              <h3 class="h3">📝 Шифрование чата (AES)</h3>
-              <p class="p">
-                Диалог шифруется по AES. Включите шифрование в <strong>настройках MaxVibe</strong> — ключи и обмен
-                подставляются <strong>автоматически</strong>, без ручного создания, копирования и сохранения ключей.
-                Корректная работа возможна, когда <strong>оба собеседника</strong> в переписке используют MaxVibe.
-              </p>
-              <div class="micro" aria-hidden="true">
-                <span class="bar"></span><span class="bar"></span><span class="bar"></span>
-              </div>
-            </article>
+						<article class="card card--glow">
+							<h3 class="h3">📝 Шифрование чата (AESRU)</h3>
+							<p class="p">
+								Новый механизм AESRU усиливает приватность и визуально маскирует
+								сообщения под русскоязычные фразы. Включается в
+								<strong>настройках MaxVibe</strong> и работает максимально
+								прозрачно для пользователя.
+							</p>
+							<div class="micro" aria-hidden="true">
+								<span class="bar"></span><span class="bar"></span
+								><span class="bar"></span>
+							</div>
+						</article>
 
-            <article class="card">
-              <h3 class="h3">❌ Антиудаление сообщений</h3>
-              <p class="p">
-                Сообщения не исчезают даже если их пытаются удалить. В демо они помечаются «❌», чтобы вы видели,
-                что произошло в чате.
-              </p>
-              <div class="swatches" aria-hidden="true">
-                <span class="sw sw--violet"></span>
-                <span class="sw sw--pink"></span>
-                <span class="sw sw--white"></span>
-                <span class="sw sw--black"></span>
-              </div>
-            </article>
+						<article class="card">
+							<h3 class="h3">🖼️ Сохранение медиа в галерею</h3>
+							<p class="p">
+								Доработали сохранение медиа: контент стабильнее попадает в
+								галерею и корректно отображается в системе.
+							</p>
+							<div class="swatches" aria-hidden="true">
+								<span class="sw sw--violet"></span>
+								<span class="sw sw--pink"></span>
+								<span class="sw sw--white"></span>
+								<span class="sw sw--black"></span>
+							</div>
+						</article>
 
-            <article class="card">
-              <h3 class="h3">🕵️ Приватность и трекеры</h3>
-              <p class="p">
-                Ограничена/остановлена отправка telemetry/crash и внешних аплоадов, которые ранее светились в сетевых
-                логах, включая точки, связанные с: <strong>sdk-api.apptracer.ru</strong>, <strong>sentry-vk-cloud</strong>,
-                <strong>ext-bots.max.ru</strong>, <strong>top-fwz1.mail.ru</strong>.
-                <br />
-                Также заблокирована/ограничена аналитика (VK Analytics, MyTracker и другие системы сбора данных).
-              </p>
-            </article>
+						<article class="card">
+							<h3 class="h3">🤖 Скрытие ботов в списке чатов</h3>
+							<p class="p">
+								Список чатов стал чище: можно убрать ботов из общей ленты и
+								оставить только нужные диалоги.
+							</p>
+						</article>
 
-            <article class="card">
-              <h3 class="h3">🚫 Нет VPN / host reachability проверки</h3>
-              <p class="p">
-                Больше не делается проверка признаков VPN и доступности хостов. Нет фоновой передачи данных о
-                пользователе.
-              </p>
-            </article>
+						<article class="card">
+							<h3 class="h3">⚠️ Предупреждения о мошенниках (бета)</h3>
+							<p class="p">
+								Бета-механизм сообщает о потенциально подозрительных
+								собеседниках и помогает снизить риск обмана.
+							</p>
+						</article>
 
-            <article class="card">
-              <h3 class="h3">🛡️ Проверка на VirusTotal</h3>
-              <p class="p">
-                Можно посмотреть результаты проверки APK сервисом VirusTotal — прозрачно и спокойно.
-              </p>
-              <p class="linksline">
-                <a
-                  class="link"
-                  href="https://www.virustotal.com/gui/file/34e647894cbf111e1ab5a302ec98ce04978767c1a91076a39223fd0a11208495?nocache=1"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Открыть отчёт VirusTotal
-                </a>
-              </p>
-            </article>
+						<article class="card">
+							<h3 class="h3">🎨 Смена иконки приложения</h3>
+							<p class="p">
+								Выбирайте внешний вид MaxVibe под себя: несколько вариантов
+								иконки прямо в настройках.
+							</p>
+							<p class="linksline">
+								<span class="pill">Новый визуал под настроение</span>
+							</p>
+						</article>
 
-            <article class="card">
-              <h3 class="h3">🔁 Управление модом</h3>
-              <p class="p">
-                Очистка кеша мода снижает нагрузку. Перезапуск приложения нужен при включении/отключении функций,
-                чтобы мод и приложение не работали в «подвешенном» состоянии.
-              </p>
-            </article>
+						<article class="card">
+							<h3 class="h3">😎 Эмодзи-статусы (бета)</h3>
+							<p class="p">
+								Поставьте короткий эмодзи-статус рядом с именем — бета-режим уже
+								доступен в 3.0.0.
+							</p>
+						</article>
 
-            <article class="card">
-              <h3 class="h3">📜 Пользовательское соглашение</h3>
-              <p class="p">
-                При старте добавлено пользовательское соглашение: принимаете — и продолжаете пользоваться модом.
-              </p>
-            </article>
-          </div>
-        </div>
-      </section>
+						<article class="card">
+							<h3 class="h3">🛠️ И ещё много фиксов</h3>
+							<p class="p">
+								Помимо крупных фич, в релиз вошли десятки мелких и средних
+								исправлений для стабильности и удобства.
+							</p>
+						</article>
+					</div>
+				</div>
+			</section>
 
-      <section id="demo" class="section demo" aria-label="Демонстрация">
-        <div class="section__inner">
-          <header class="section__head">
-            <h2 class="h2">Демо: антиудаление сообщений (2.2.1)</h2>
-            <p class="sub">
-              Нажмите «Удалить» на сообщении — оно останется в чате с меткой «❌». Шифрование AES включается в настройках
-              MaxVibe и обслуживается автоматически; в защищённом режиме оба собеседника должны использовать MaxVibe.
-            </p>
-          </header>
+			<section
+				id="community"
+				class="section community"
+				aria-label="Новости сообщества"
+			>
+				<div class="section__inner">
+					<header class="section__head">
+						<h2 class="h2">Комьюнити и важные новости</h2>
+						<p class="sub">
+							25.04.2026 проекту MaxVibe исполнилось ровно 3 месяца. И в этот же
+							период о моде рассказали крупные авторы.
+						</p>
+					</header>
 
-          <div class="demo__layout">
-            <div class="phone" aria-label="Прототип интерфейса">
-              <div class="phone__glass" aria-hidden="true"></div>
-              <div class="phone__screen" role="region" aria-label="Экран демо">
-                <div class="phone__top">
-                  <span class="phone__title">MAX</span>
-                  <span class="phone__pill">MaxVibe 2.2.1</span>
-                </div>
+					<div class="grid">
+						<article class="card card--glow">
+							<h3 class="h3">🎉 Нам 3 месяца</h3>
+							<p class="p">
+								25 апреля 2026 года MaxVibe исполнилось ровно 3 месяца. Спасибо
+								каждому, кто поддерживает, тестирует и помогает проекту
+								развиваться.
+							</p>
+						</article>
+						<article class="card card--featured">
+							<h3 class="h3">📢 EVG выпустил обзор на MaxVibe</h3>
+							<p class="p">
+								Очень крупный блогер EVG (980K+ подписчиков) выпустил на YouTube
+								обзор модов на MAX, куда попала и наша версия MaxVibe. Для
+								команды это огромный стимул двигаться дальше.
+							</p>
+							<p class="p" style="margin-top: 10px">
+								Спасибо EVG за интересный и познавательный ролик — дальше
+								больше.
+							</p>
+							<p class="linksline">
+								<a
+									class="link"
+									href="https://www.youtube.com/watch?v=_ICKITYXrDo"
+									target="_blank"
+									rel="noreferrer"
+								>
+									Смотреть обзор на YouTube
+								</a>
+							</p>
+						</article>
+					</div>
+				</div>
+			</section>
 
-                <div class="chat" aria-label="Чат демо" data-chat>
-                  <div class="chat__meta" aria-hidden="true">Сегодня</div>
+			<section id="demo" class="section demo" aria-label="Демонстрация">
+				<div class="section__inner">
+					<header class="section__head">
+						<h2 class="h2">Демо: антиудаление сообщений (3.0.0)</h2>
+						<p class="sub">
+							Нажмите «Удалить» на сообщении — оно останется в чате с меткой
+							«❌». В 3.0.0 также доступно AESRU-шифрование и новые приватные
+							функции: режим призрака, нечиталка и скрытие «печатает...».
+						</p>
+					</header>
 
-                  <div class="msg msg--in" data-msg="0">
-                    <div class="msg__bubble">
-                      <div class="msg__text">Включил шифрование в настройках MaxVibe</div>
-                      <div class="msg__actions">
-                        <button class="msg__btn" type="button" data-delete>
-                          Удалить
-                        </button>
-                      </div>
-                    </div>
-                  </div>
+					<div class="demo__layout">
+						<div class="phone" aria-label="Прототип интерфейса">
+							<div class="phone__glass" aria-hidden="true"></div>
+							<div class="phone__screen" role="region" aria-label="Экран демо">
+								<div class="phone__top">
+									<span class="phone__title">MAX</span>
+									<span class="phone__pill">MaxVibe 3.0.0</span>
+								</div>
 
-                  <div class="msg msg--out" data-msg="1">
-                    <div class="msg__bubble">
-                      <div class="msg__text">У меня тоже всё автоматом в настройках</div>
-                      <div class="msg__actions">
-                        <button class="msg__btn" type="button" data-delete>
-                          Удалить
-                        </button>
-                      </div>
-                    </div>
-                  </div>
+								<div class="chat" aria-label="Чат демо" data-chat>
+									<div class="chat__meta" aria-hidden="true">Сегодня</div>
 
-                  <div class="msg msg--in" data-msg="2">
-                    <div class="msg__bubble">
-                      <div class="msg__text">Отлично, без ручных ключей удобно</div>
-                      <div class="msg__actions">
-                        <button class="msg__btn" type="button" data-delete>
-                          Удалить
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+									<div class="msg msg--in" data-msg="0">
+										<div class="msg__bubble">
+											<div class="msg__text">
+												Включил шифрование в настройках MaxVibe
+											</div>
+											<div class="msg__actions">
+												<button class="msg__btn" type="button" data-delete>
+													Удалить
+												</button>
+											</div>
+										</div>
+									</div>
 
-                <div class="toast" role="status" aria-live="polite" data-demo-toast>
-                  Подсказка: нажмите «Удалить» на любом сообщении — оно останется с меткой «❌».
-                </div>
-              </div>
-            </div>
+									<div class="msg msg--out" data-msg="1">
+										<div class="msg__bubble">
+											<div class="msg__text">
+												У меня тоже всё автоматом в настройках
+											</div>
+											<div class="msg__actions">
+												<button class="msg__btn" type="button" data-delete>
+													Удалить
+												</button>
+											</div>
+										</div>
+									</div>
 
-            <aside class="steps" aria-label="Информация о релизе">
-              <article class="step" data-active="true">
-                <h3 class="h3">Антиудаление 2.2.1</h3>
-                <p class="p">Сообщения не исчезают даже после удаления — помечаются «❌».</p>
-              </article>
-              <article class="step">
-                <h3 class="h3">Шифрование AES</h3>
-                <p class="p">
-                  В настройках MaxVibe включите шифрование — ключи и обмен настраиваются автоматически, без ручного
-                  создания и сохранения.
-                </p>
-              </article>
-              <article class="step">
-                <h3 class="h3">Оба в MaxVibe</h3>
-                <p class="p">Защищённый диалог рассчитан на переписку между двумя пользователями MaxVibe.</p>
-              </article>
-              <article class="step">
-                <h3 class="h3">Подписка на авторов</h3>
-                <p class="p">
-                  <a class="link" href="https://t.me/max_vibe" target="_blank" rel="noreferrer">@max_vibe</a>
-                </p>
-              </article>
-            </aside>
-          </div>
-        </div>
-      </section>
+									<div class="msg msg--in" data-msg="2">
+										<div class="msg__bubble">
+											<div class="msg__text">
+												Отлично, без ручных ключей удобно
+											</div>
+											<div class="msg__actions">
+												<button class="msg__btn" type="button" data-delete>
+													Удалить
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
 
-      <section id="download" class="section download" aria-label="Скачать">
-        <div class="section__inner">
-          <header class="section__head">
-            <h2 class="h2">Скачать актуальный APK</h2>
-            <p class="sub">
-              Кнопка ниже автоматически берёт последнюю сборку из релизов GitHub (если `.apk` есть в assets).
-            </p>
-          </header>
+								<div
+									class="toast"
+									role="status"
+									aria-live="polite"
+									data-demo-toast
+								>
+									Подсказка: нажмите «Удалить» на любом сообщении — оно
+									останется с меткой «❌».
+								</div>
+							</div>
+						</div>
 
-          <div class="download__panel" role="region" aria-label="Панель скачивания">
-            <div class="download__left">
-              <p class="download__title">MaxVibe</p>
-              <p class="download__meta" data-release-meta>Проверяем latest release…</p>
-            </div>
-            <div class="download__right">
-              <a class="btn btn--primary" data-download-btn href="https://github.com/dorofo/max-vibe/releases" target="_blank" rel="noreferrer">
-                <span data-download-label>Открыть релизы</span>
-                <span class="btn__shine" aria-hidden="true"></span>
-              </a>
-              <a class="btn btn--ghost" href="https://t.me/max_vibe" target="_blank" rel="noreferrer">t.me/max_vibe</a>
-            </div>
-          </div>
+						<aside class="steps" aria-label="Информация о релизе">
+							<article class="step" data-active="true">
+								<h3 class="h3">Антиудаление 3.0.0</h3>
+								<p class="p">
+									Сообщения не исчезают даже после удаления — помечаются «❌».
+								</p>
+							</article>
+							<article class="step">
+								<h3 class="h3">Шифрование AESRU</h3>
+								<p class="p">
+									Новый режим AESRU маскирует сообщения под русские фразы и
+									усиливает приватность переписки.
+								</p>
+							</article>
+							<article class="step">
+								<h3 class="h3">Приватные режимы</h3>
+								<p class="p">
+									Режим призрака, нечиталка и скрытие «печатает...» доступны
+									отдельно и настраиваются гибко.
+								</p>
+							</article>
+							<article class="step">
+								<h3 class="h3">Подписка на авторов</h3>
+								<p class="p">
+									<a
+										class="link"
+										href="https://t.me/max_vibe"
+										target="_blank"
+										rel="noreferrer"
+										>@max_vibe</a
+									>
+								</p>
+							</article>
+						</aside>
+					</div>
+				</div>
+			</section>
 
-          <p class="fineprint">
-            Важно: проект предоставляется «как есть». Перед установкой проверяйте APK и учитывайте условия использования
-            оригинального приложения.
-            <br />
-            При старте добавлено пользовательское соглашение: принимаете — и продолжаете пользоваться модом.
-            <a class="link" href="https://github.com/dorofo/max-vibe?tab=License-1-ov-file" target="_blank" rel="noreferrer" style="margin-left: 10px;">
-              Открыть соглашение
-            </a>
-          </p>
-        </div>
-      </section>
-    </main>
+			<section id="download" class="section download" aria-label="Скачать">
+				<div class="section__inner">
+					<header class="section__head">
+						<h2 class="h2">Скачать актуальный APK</h2>
+						<p class="sub">
+							Кнопка ниже автоматически берёт последнюю сборку из релизов GitHub
+							(если `.apk` есть в assets).
+						</p>
+					</header>
 
-    <footer class="footer" role="contentinfo">
-      <div class="footer__inner">
-        <p class="footer__brand">
-          <span class="brand__mark" aria-hidden="true"></span>
-          <span>MaxVibe</span>
-        </p>
-        <p class="footer__links">
-          <a href="https://github.com/dorofo/max-vibe" target="_blank" rel="noreferrer">GitHub</a>
-          <span aria-hidden="true">·</span>
-          <a href="https://t.me/max_vibe" target="_blank" rel="noreferrer">Telegram</a>
-        </p>
-      </div>
-    </footer>
+					<div
+						class="download__panel"
+						role="region"
+						aria-label="Панель скачивания"
+					>
+						<div class="download__left">
+							<p class="download__title">MaxVibe 3.0.0</p>
+							<p class="download__meta" data-release-meta>
+								Проверяем latest release…
+							</p>
+						</div>
+						<div class="download__right">
+							<a
+								class="btn btn--primary"
+								data-download-btn
+								href="https://github.com/dorofo/max-vibe/releases"
+								target="_blank"
+								rel="noreferrer"
+							>
+								<span data-download-label>Открыть релизы</span>
+								<span class="btn__shine" aria-hidden="true"></span>
+							</a>
+							<a
+								class="btn btn--ghost"
+								href="https://t.me/max_vibe"
+								target="_blank"
+								rel="noreferrer"
+								>t.me/max_vibe</a
+							>
+						</div>
+					</div>
 
-    <script type="module" src="./main.js"></script>
-  </body>
+					<p class="fineprint">
+						Важно: проект предоставляется «как есть». Перед установкой
+						проверяйте APK и учитывайте условия использования оригинального
+						приложения.
+						<br />
+						При старте добавлено пользовательское соглашение: принимаете — и
+						продолжаете пользоваться модом.
+						<a
+							class="link"
+							href="https://github.com/dorofo/max-vibe?tab=License-1-ov-file"
+							target="_blank"
+							rel="noreferrer"
+							style="margin-left: 10px"
+						>
+							Открыть соглашение
+						</a>
+					</p>
+				</div>
+			</section>
+		</main>
+
+		<footer class="footer" role="contentinfo">
+			<div class="footer__inner">
+				<p class="footer__brand">
+					<span class="brand__mark" aria-hidden="true"></span>
+					<span>MaxVibe</span>
+				</p>
+				<p class="footer__links">
+					<a
+						href="https://github.com/dorofo/max-vibe"
+						target="_blank"
+						rel="noreferrer"
+						>GitHub</a
+					>
+					<span aria-hidden="true">·</span>
+					<a href="https://t.me/max_vibe" target="_blank" rel="noreferrer"
+						>Telegram</a
+					>
+				</p>
+			</div>
+		</footer>
+
+		<script type="module" src="./main.js"></script>
+	</body>
 </html>
