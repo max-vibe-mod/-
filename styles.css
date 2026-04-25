@@ -36,9 +36,10 @@ body {
 
 body {
   margin: 0;
-  background: radial-gradient(1200px 700px at 22% -10%, rgba(167, 139, 250, 0.18), transparent 55%),
-    radial-gradient(900px 550px at 85% 10%, rgba(255, 59, 212, 0.14), transparent 60%),
-    linear-gradient(180deg, #06050a, #07060a 35%, #05050a);
+  background: radial-gradient(1200px 700px at 22% -10%, rgba(167, 139, 250, 0.24), transparent 55%),
+    radial-gradient(900px 550px at 85% 10%, rgba(255, 59, 212, 0.20), transparent 60%),
+    radial-gradient(800px 500px at 50% 24%, rgba(83, 201, 255, 0.08), transparent 64%),
+    linear-gradient(180deg, #06050a, #080711 35%, #05050a);
   color: var(--fg);
   font-family: "Manrope", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   text-rendering: optimizeLegibility;
@@ -80,7 +81,7 @@ button:focus-visible {
   top: 0;
   z-index: 30;
   backdrop-filter: blur(16px);
-  background: linear-gradient(180deg, rgba(7, 6, 10, 0.86), rgba(7, 6, 10, 0.62));
+  background: linear-gradient(180deg, rgba(7, 6, 10, 0.92), rgba(7, 6, 10, 0.70));
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
@@ -219,9 +220,10 @@ button:focus-visible {
   margin: 0 0 16px;
   padding: 9px 12px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0.04));
+  border: 1px solid rgba(255, 255, 255, 0.16);
   color: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 14px 40px rgba(255, 59, 212, 0.09);
 }
 
 .dot {
@@ -515,7 +517,7 @@ button:focus-visible {
   grid-column: span 6;
   padding: 18px 18px 16px;
   border-radius: var(--radius2);
-  background: rgba(255, 255, 255, 0.05);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04));
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: var(--shadow2);
   position: relative;
@@ -526,7 +528,15 @@ button:focus-visible {
 .card:hover {
   transform: translateY(-3px);
   border-color: rgba(255, 59, 212, 0.26);
-  background: rgba(255, 255, 255, 0.06);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.06));
+}
+
+.card--featured {
+  border-color: rgba(83, 201, 255, 0.34);
+  background:
+    radial-gradient(circle at 10% 15%, rgba(83, 201, 255, 0.14), transparent 40%),
+    radial-gradient(circle at 90% 90%, rgba(255, 59, 212, 0.13), transparent 42%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0.04));
 }
 
 .linksline {
@@ -874,6 +884,10 @@ button:focus-visible {
   border: 1px solid rgba(255, 255, 255, 0.12);
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(0, 0, 0, 0.22));
   box-shadow: var(--shadow2);
+}
+
+.community {
+  padding-top: 30px;
 }
 
 .download__title {
