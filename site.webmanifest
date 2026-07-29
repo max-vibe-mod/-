@@ -1,0 +1,18 @@
+{
+	"name": "MaxVibe — мод на MAX",
+	"short_name": "MaxVibe",
+	"description": "Скачать MaxVibe — мод мессенджера MAX (Макс Вайб) для Android",
+	"start_url": "https://максвайб.рф/",
+	"display": "standalone",
+	"background_color": "#1a1522",
+	"theme_color": "#1a1522",
+	"lang": "ru",
+	"icons": [
+		{
+			"src": "https://raw.githubusercontent.com/dorofo/max-vibe-assets/main/ic_launcher_max_vibe.png",
+			"sizes": "512x512",
+			"type": "image/png",
+			"purpose": "any maskable"
+		}
+	]
+}

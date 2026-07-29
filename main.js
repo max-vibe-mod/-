@@ -1,364 +1,566 @@
-const REPO = "dorofo/max-vibe";
-const RELEASES_LATEST = `https://api.github.com/repos/${REPO}/releases/latest`;
+const REPO = 'dorofo/max-vibe'
+const RELEASES_LATEST = `https://api.github.com/repos/${REPO}/releases/latest`
 
-const prefersReducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false;
+const prefersReducedMotion =
+	window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches ?? false
+const isCoarse = window.matchMedia?.('(pointer: coarse)')?.matches ?? false
 
 function qs(sel, root = document) {
-  return root.querySelector(sel);
+	return root.querySelector(sel)
 }
 
 function qsa(sel, root = document) {
-  return Array.from(root.querySelectorAll(sel));
+	return Array.from(root.querySelectorAll(sel))
 }
 
 function clamp(n, a, b) {
-  return Math.max(a, Math.min(b, n));
+	return Math.max(a, Math.min(b, n))
 }
 
 async function initLatestApkDownload() {
-  const meta = qs("[data-release-meta]");
-  const btn = qs("[data-download-btn]");
-  const label = qs("[data-download-label]");
-  if (!meta || !btn || !label) return;
+	const meta = qs('[data-release-meta]')
+	const btn = qs('[data-download-btn]')
+	const label = qs('[data-download-label]')
+	if (!meta || !btn || !label) return
 
-  const fallbackUrl = `https://github.com/${REPO}/releases/latest`;
+	const fallbackUrl = `https://github.com/${REPO}/releases/latest`
 
-  try {
-    const res = await fetch(RELEASES_LATEST, {
-      headers: {
-        Accept: "application/vnd.github+json",
-      },
-    });
-    if (!res.ok) throw new Error(`GitHub API: ${res.status}`);
+	try {
+		const res = await fetch(RELEASES_LATEST, {
+			headers: { Accept: 'application/vnd.github+json' },
+		})
+		if (!res.ok) throw new Error(`GitHub API: ${res.status}`)
 
-    const data = await res.json();
-    const tag = data?.tag_name || data?.name || "latest";
-    const publishedAt = data?.published_at ? new Date(data.published_at) : null;
-    const assets = Array.isArray(data?.assets) ? data.assets : [];
+		const data = await res.json()
+		const tag = data?.tag_name || data?.name || 'latest'
+		const publishedAt = data?.published_at ? new Date(data.published_at) : null
+		const assets = Array.isArray(data?.assets) ? data.assets : []
+		const apk = assets.find(
+			a => typeof a?.name === 'string' && a.name.toLowerCase().endsWith('.apk'),
+		)
 
-    const apk = assets.find((a) => typeof a?.name === "string" && a.name.toLowerCase().endsWith(".apk"));
+		if (!apk?.browser_download_url) {
+			meta.textContent = `Latest: ${tag}. APK не найден в assets — открываю релизы.`
+			btn.href = fallbackUrl
+			btn.target = '_blank'
+			btn.rel = 'noreferrer'
+			label.textContent = 'Открыть релизы'
+			return
+		}
 
-    if (!apk?.browser_download_url) {
-      meta.textContent = `Latest: ${tag}. APK не найден в assets — открываю релизы.`;
-      btn.href = fallbackUrl;
-      btn.target = "_blank";
-      btn.rel = "noreferrer";
-      label.textContent = "Открыть релизы";
-      return;
-    }
+		const sizeMb =
+			typeof apk.size === 'number' ? (apk.size / 1024 / 1024).toFixed(1) : null
+		const when = publishedAt
+			? publishedAt.toLocaleDateString('ru-RU', {
+					year: 'numeric',
+					month: 'short',
+					day: '2-digit',
+				})
+			: null
 
-    const sizeMb = typeof apk.size === "number" ? (apk.size / 1024 / 1024).toFixed(1) : null;
-    const when = publishedAt
-      ? publishedAt.toLocaleDateString("ru-RU", { year: "numeric", month: "short", day: "2-digit" })
-      : null;
+		meta.textContent = `Latest: ${tag}${when ? ` · ${when}` : ''}${sizeMb ? ` · ${sizeMb} MB` : ''}`
+		btn.href = apk.browser_download_url
+		btn.target = '_self'
+		btn.rel = ''
+		label.textContent = 'Скачать APK'
+	} catch {
+		meta.textContent = 'Не удалось получить latest release — открываю релизы.'
+		btn.href = fallbackUrl
+		btn.target = '_blank'
+		btn.rel = 'noreferrer'
+		label.textContent = 'Открыть релизы'
+	}
+}
 
-    meta.textContent = `Latest: ${tag}${when ? ` · ${when}` : ""}${sizeMb ? ` · ${sizeMb} MB` : ""}`;
-    btn.href = apk.browser_download_url;
-    btn.target = "_self";
-    btn.rel = "";
-    label.textContent = "Скачать APK";
-  } catch (e) {
-    meta.textContent = "Не удалось получить latest release — открываю релизы.";
-    btn.href = fallbackUrl;
-    btn.target = "_blank";
-    btn.rel = "noreferrer";
-    label.textContent = "Открыть релизы";
-  }
+function setMsgDeleted(msg, deleted) {
+	const label = qs('.msg__deleted', msg)
+	if (!label) return
+	label.hidden = !deleted
+	msg.dataset.state = deleted ? 'deleted' : ''
 }
 
 function initDeletedMessagesDemo() {
-  const root = qs("[data-chat]");
-  const toast = qs("[data-demo-toast]");
-  if (!root || !toast) return;
+	const root = qs('[data-chat]')
+	const toast = qs('[data-demo-toast]')
+	if (!root || !toast) return
 
-  const isDeleted = new Set();
+	const isDeleted = new Set()
 
-  const setToast = (t) => {
-    toast.textContent = t;
-  };
+	root.addEventListener('click', e => {
+		const btn = e.target?.closest?.('[data-delete]')
+		if (!btn) return
+		const msg = btn.closest?.('.msg')
+		if (!msg) return
+		const id = msg.getAttribute('data-msg') ?? ''
+		if (!id) return
 
-  root.addEventListener("click", (e) => {
-    const btn = e.target?.closest?.("[data-delete]");
-    if (!btn) return;
-    const msg = btn.closest?.(".msg");
-    if (!msg) return;
+		if (isDeleted.has(id)) {
+			isDeleted.delete(id)
+			setMsgDeleted(msg, false)
+			toast.textContent =
+				'Восстановлено (демо). Нажмите «Удалить», чтобы увидеть метку deleted.'
+			return
+		}
 
-    const id = msg.getAttribute("data-msg") ?? "";
-    if (!id) return;
-
-    if (isDeleted.has(id)) {
-      isDeleted.delete(id);
-      msg.dataset.state = "";
-      const text = qs(".msg__text", msg);
-      if (text && text.dataset.orig) text.textContent = text.dataset.orig;
-      setToast("Восстановлено (демо). Нажмите «Удалить», чтобы увидеть метку ❌.");
-      return;
-    }
-
-    isDeleted.add(id);
-    msg.dataset.state = "deleted";
-    const text = qs(".msg__text", msg);
-    if (text) {
-      text.dataset.orig = text.textContent;
-      text.textContent = `❌ ${text.textContent}`;
-    }
-    setToast("Удалено в чате, но сохранено в MaxVibe и помечено «❌» (демо).");
-  });
+		isDeleted.add(id)
+		setMsgDeleted(msg, true)
+		toast.textContent =
+			'Удалено в чате, но сохранено в MaxVibe — под сообщением появилась красная метка deleted (демо).'
+	})
 }
 
-async function initThreeStage() {
-  const stage = qs("[data-stage]");
-  const canvas = qs("[data-stage-canvas]");
-  const ctrl = qs("[data-stage-ctrl]");
-  const fallback = qs("[data-stage-fallback]");
-  if (!stage || !canvas) return;
-  if (ctrl) ctrl.hidden = true;
-  if (fallback) {
-    fallback.hidden = true;
-    fallback.dataset.mode = "";
-    fallback.setAttribute("aria-hidden", "true");
-  }
-  if (prefersReducedMotion) return;
+function initVibePanel() {
+	const root = qs('[data-vibe]')
+	const phone = qs('.vibe__phone', root || document)
+	const feed = qs('[data-vibe-feed]')
+	const status = qs('[data-vibe-status]')
+	if (!root || !phone || !feed) return
 
-  // Lightweight safety: disable 3D on low-concurrency devices.
-  if (typeof navigator?.hardwareConcurrency === "number" && navigator.hardwareConcurrency <= 2) return;
+	const lines = [
+		{ text: 'прочитал… и никто не узнал', side: 'out' },
+		{ text: 'всегда офлайн 👻', side: 'in' },
+		{ text: 'это удалили, но у тебя осталось', side: 'out', ghost: true, deleted: true },
+		{ text: '@pic котики', side: 'in' },
+		{ text: 'сторис без отметки ✨', side: 'out' },
+		{ text: 'ссылка проверена — ок', side: 'in' },
+		{ text: 'печатает… никому не светит', side: 'out' },
+		{ text: 'маскировка под MAX', side: 'in' },
+	]
+	const statuses = [
+		'всегда офлайн',
+		'тихо читает…',
+		'без «печатает»',
+		'сторис инкогнито',
+		'вайб 4.0.0',
+	]
 
-  try {
-    const THREE = await import("https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js");
-    if (ctrl) ctrl.hidden = false;
-    if (fallback) {
-      fallback.hidden = false;
-      fallback.dataset.mode = "hint";
-      fallback.setAttribute("aria-hidden", "true");
-      window.setTimeout(() => {
-        if (!fallback) return;
-        if (fallback.dataset.mode !== "hint") return;
-        fallback.hidden = true;
-      }, 2600);
-    }
+	let i = 0
+	let timer = 0
 
-    const renderer = new THREE.WebGLRenderer({
-      canvas,
-      antialias: true,
-      alpha: true,
-      powerPreference: "high-performance",
-    });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-    renderer.outputColorSpace = THREE.SRGBColorSpace;
+	const pushBubble = () => {
+		const item = lines[i % lines.length]
+		i += 1
+		const bubble = document.createElement('div')
+		bubble.className = `vibe-bubble vibe-bubble--${item.side}${item.ghost ? ' vibe-bubble--ghost' : ''}`
 
-    const scene = new THREE.Scene();
+		if (item.deleted) {
+			const text = document.createElement('span')
+			text.className = 'vibe-bubble__text'
+			text.textContent = item.text
+			const label = document.createElement('span')
+			label.className = 'vibe-bubble__deleted'
+			label.textContent = 'deleted'
+			bubble.append(text, label)
+		} else {
+			bubble.textContent = item.text
+		}
 
-    const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 30);
-    camera.position.set(0, 0.2, 4.2);
+		feed.appendChild(bubble)
+		while (feed.children.length > 3) feed.firstElementChild?.remove()
+		if (status) status.textContent = statuses[i % statuses.length]
+	}
 
-    const lightA = new THREE.PointLight(0xff3bd4, 38, 12);
-    lightA.position.set(1.8, 1.2, 2.2);
-    scene.add(lightA);
+	pushBubble()
 
-    const lightB = new THREE.PointLight(0xa78bfa, 28, 12);
-    lightB.position.set(-2.0, -0.2, 2.1);
-    scene.add(lightB);
+	const start = () => {
+		if (prefersReducedMotion || timer) return
+		timer = window.setInterval(pushBubble, 2800)
+	}
+	const stop = () => {
+		if (!timer) return
+		clearInterval(timer)
+		timer = 0
+	}
 
-    const rim = new THREE.DirectionalLight(0xffffff, 0.7);
-    rim.position.set(0, 2.4, 1.6);
-    scene.add(rim);
+	if (!prefersReducedMotion) {
+		const io = new IntersectionObserver(
+			entries => {
+				entries.forEach(e => {
+					if (e.isIntersecting) start()
+					else stop()
+				})
+			},
+			{ threshold: 0.2 },
+		)
+		io.observe(root)
 
-    const group = new THREE.Group();
-    scene.add(group);
-
-    // "Logo coin" — torus knot + inset disc, premium neon material.
-    const knot = new THREE.TorusKnotGeometry(0.86, 0.23, 220, 22, 2, 5);
-    const mat = new THREE.MeshPhysicalMaterial({
-      color: 0xffffff,
-      metalness: 0.45,
-      roughness: 0.25,
-      clearcoat: 0.9,
-      clearcoatRoughness: 0.15,
-      transmission: 0.02,
-      ior: 1.4,
-    });
-
-    const mesh = new THREE.Mesh(knot, mat);
-    group.add(mesh);
-
-    const disc = new THREE.Mesh(
-      new THREE.CylinderGeometry(0.78, 0.78, 0.10, 60, 1, false),
-      new THREE.MeshStandardMaterial({
-        color: 0x0b0a12,
-        metalness: 0.2,
-        roughness: 0.35,
-        emissive: 0x120717,
-        emissiveIntensity: 0.7,
-      })
-    );
-    disc.rotation.x = Math.PI / 2;
-    disc.position.z = -0.02;
-    group.add(disc);
-
-    const glow = new THREE.Mesh(
-      new THREE.SphereGeometry(1.22, 26, 18),
-      new THREE.MeshBasicMaterial({
-        color: 0xa78bfa,
-        transparent: true,
-        opacity: 0.05,
-      })
-    );
-    group.add(glow);
-
-    let raf = 0;
-    let t0 = performance.now();
-
-    const resize = () => {
-      const r = stage.getBoundingClientRect();
-      const w = Math.max(1, Math.floor(r.width));
-      const h = Math.max(1, Math.floor(r.height));
-      renderer.setSize(w, h, false);
-      camera.aspect = w / h;
-      camera.updateProjectionMatrix();
-    };
-
-    const pointer = { x: 0, y: 0 };
-    const drag = { active: false, x0: 0, y0: 0, px: 0, py: 0 };
-    const onMove = (e) => {
-      const r = stage.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width;
-      const y = (e.clientY - r.top) / r.height;
-      if (!drag.active) {
-        pointer.x = (x - 0.5) * 2;
-        pointer.y = (0.5 - y) * 2;
-        return;
-      }
-      const dx = e.clientX - drag.x0;
-      const dy = e.clientY - drag.y0;
-      drag.px = dx;
-      drag.py = dy;
-    };
-    window.addEventListener("pointermove", onMove, { passive: true });
-
-    const onDown = (e) => {
-      drag.active = true;
-      drag.x0 = e.clientX;
-      drag.y0 = e.clientY;
-      drag.px = 0;
-      drag.py = 0;
-      if (fallback && fallback.dataset.mode === "hint") fallback.hidden = true;
-    };
-
-    const onUp = () => {
-      drag.active = false;
-      drag.px = 0;
-      drag.py = 0;
-    };
-
-    stage.addEventListener("pointerdown", onDown);
-    window.addEventListener("pointerup", onUp, { passive: true });
-
-    const onScroll = () => {
-      // Slight scroll-reactive depth.
-      const y = window.scrollY || 0;
-      const amt = clamp(y / 900, 0, 1);
-      group.position.y = -0.06 * amt;
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-
-    let paused = false;
-    let spinBoost = 1;
-
-    const setPaused = (v) => {
-      paused = Boolean(v);
-      if (ctrl) ctrl.textContent = paused ? "Запуск" : "Пауза";
-    };
-
-    if (ctrl) {
-      ctrl.addEventListener("click", () => {
-        setPaused(!paused);
-      });
-    }
-
-    const tick = (now) => {
-      const dt = (now - t0) / 1000;
-      t0 = now;
-
-      if (!paused) group.rotation.y += dt * 0.55 * spinBoost;
-      spinBoost = THREE.MathUtils.lerp(spinBoost, drag.active ? 0.15 : 1, 0.08);
-
-      if (drag.active) {
-        group.rotation.y += drag.px * 0.0008;
-        group.rotation.x += drag.py * 0.0008;
-        drag.px *= 0.92;
-        drag.py *= 0.92;
-      } else {
-        group.rotation.x = THREE.MathUtils.lerp(group.rotation.x, pointer.y * 0.18, 0.06);
-        group.rotation.z = THREE.MathUtils.lerp(group.rotation.z, -pointer.x * 0.10, 0.06);
-      }
-
-      // Color drift between violet and pink, subtle and premium.
-      const k = 0.5 + 0.5 * Math.sin(now * 0.00065);
-      const c1 = new THREE.Color(0xa78bfa);
-      const c2 = new THREE.Color(0xff3bd4);
-      const c = c1.lerp(c2, k);
-      lightA.color.copy(c2);
-      lightB.color.copy(c1);
-      mat.emissive = c.clone();
-      mat.emissiveIntensity = 0.16 + 0.08 * Math.sin(now * 0.001);
-
-      renderer.render(scene, camera);
-      raf = requestAnimationFrame(tick);
-    };
-
-    const stop = () => {
-      if (raf) cancelAnimationFrame(raf);
-      raf = 0;
-    };
-
-    const start = () => {
-      if (raf) return;
-      resize();
-      raf = requestAnimationFrame(tick);
-    };
-
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) {
-          if (e.isIntersecting) start();
-          else stop();
-        }
-      },
-      { threshold: 0.12 }
-    );
-    io.observe(stage);
-
-    window.addEventListener("resize", resize, { passive: true });
-    resize();
-  } catch {
-    if (ctrl) ctrl.hidden = true;
-    if (fallback) {
-      fallback.hidden = false;
-      fallback.dataset.mode = "error";
-      fallback.innerHTML = "3D недоступно на этом устройстве";
-      fallback.setAttribute("aria-hidden", "true");
-    }
-  }
+		if (!isCoarse) {
+			let frame = 0
+			root.addEventListener(
+				'pointermove',
+				e => {
+					if (document.body.classList.contains('is-scrolling')) return
+					if (frame) return
+					frame = requestAnimationFrame(() => {
+						frame = 0
+						const r = root.getBoundingClientRect()
+						const x = (e.clientX - r.left) / r.width - 0.5
+						const y = (e.clientY - r.top) / r.height - 0.5
+						phone.style.transform = `rotateY(${x * 10}deg) rotateX(${-y * 8}deg)`
+					})
+				},
+				{ passive: true },
+			)
+			root.addEventListener('pointerleave', () => {
+				phone.style.transform = ''
+			})
+		}
+	} else {
+		lines.slice(1, 3).forEach(item => {
+			const bubble = document.createElement('div')
+			bubble.className = `vibe-bubble vibe-bubble--${item.side}`
+			bubble.textContent = item.text
+			feed.appendChild(bubble)
+		})
+	}
 }
 
 function initSmoothAnchors() {
-  if (prefersReducedMotion) return;
-  qsa('a[href^="#"]').forEach((a) => {
-    a.addEventListener("click", (e) => {
-      const href = a.getAttribute("href");
-      if (!href || href === "#") return;
-      const id = href.slice(1);
-      const el = document.getElementById(id);
-      if (!el) return;
-      e.preventDefault();
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
-      history.pushState({}, "", href);
-    });
-  });
+	qsa('a[href^="#"]').forEach(a => {
+		a.addEventListener('click', e => {
+			const href = a.getAttribute('href')
+			if (!href || href === '#') return
+			const el = document.getElementById(href.slice(1))
+			if (!el) return
+			e.preventDefault()
+			el.scrollIntoView({
+				behavior: prefersReducedMotion ? 'auto' : 'smooth',
+				block: 'start',
+			})
+			history.pushState({}, '', href)
+		})
+	})
 }
 
-initSmoothAnchors();
-initDeletedMessagesDemo();
-initLatestApkDownload();
-initThreeStage();
+function initReveals() {
+	const nodes = qsa('[data-reveal]')
+	if (!nodes.length) return
+	if (prefersReducedMotion) {
+		nodes.forEach(n => n.classList.add('is-in'))
+		return
+	}
 
+	const io = new IntersectionObserver(
+		entries => {
+			entries.forEach(e => {
+				if (!e.isIntersecting) return
+				e.target.classList.add('is-in')
+				io.unobserve(e.target)
+			})
+		},
+		{ threshold: 0.08, rootMargin: '0px 0px -5% 0px' },
+	)
+	nodes.forEach(n => io.observe(n))
+}
+
+function initSplitHeadline() {
+	const lines = qsa('[data-split]')
+	if (!lines.length) return
+
+	lines.forEach(line => {
+		const text = line.textContent ?? ''
+		line.textContent = ''
+		const chars = [...text]
+		chars.forEach((ch, i) => {
+			if (ch === '') return
+			const span = document.createElement('span')
+			if (ch === ' ' || ch === '\u00a0') {
+				span.className = 'split-space'
+				span.innerHTML = '&nbsp;'
+			} else {
+				span.className = 'split-char'
+				const next = chars[i + 1]
+				if (next && /[.,!?]/.test(next) && !/[.,!?]/.test(ch)) {
+					span.textContent = ch + next
+					chars[i + 1] = ''
+				} else {
+					span.textContent = ch
+				}
+			}
+			line.appendChild(span)
+		})
+	})
+
+	qsa('.split-char').forEach(c => c.classList.add('is-in'))
+}
+
+function initStepCycle() {
+	const steps = qsa('[data-step]')
+	const demo = qs('#demo')
+	if (steps.length < 2) return
+
+	let i = 0
+	let timer = 0
+	const activate = idx => {
+		steps.forEach((s, n) => {
+			s.dataset.active = n === idx ? 'true' : 'false'
+		})
+	}
+	activate(0)
+	if (prefersReducedMotion) return
+
+	const start = () => {
+		if (timer) return
+		timer = window.setInterval(() => {
+			i = (i + 1) % steps.length
+			activate(i)
+		}, 3200)
+	}
+	const stop = () => {
+		if (!timer) return
+		clearInterval(timer)
+		timer = 0
+	}
+
+	if (demo) {
+		const io = new IntersectionObserver(
+			entries => {
+				entries.forEach(e => {
+					if (e.isIntersecting) start()
+					else stop()
+				})
+			},
+			{ threshold: 0.25 },
+		)
+		io.observe(demo)
+	} else start()
+
+	steps.forEach((step, idx) => {
+		step.addEventListener('pointerenter', () => {
+			i = idx
+			activate(i)
+		})
+	})
+}
+
+function initScrollSystem() {
+	const bar = qs('[data-progress]')
+	const topbar = qs('.topbar')
+	const acts = qsa('[data-act]')
+	const rails = qsa('[data-rail]')
+	const nav = qs('[data-act-nav]')
+	const navDots = qsa('[data-act-jump]')
+
+	let ticking = false
+	let scrollEndTimer = 0
+	let lastAct = ''
+	let lastInStory = false
+	let lastScrolled = false
+
+	const setRail = (act, title) => {
+		if (act === lastAct) return
+		lastAct = act
+		const left = rails[0]
+		if (left) {
+			const label = qs('[data-rail-label]', left)
+			const titleEl = qs('[data-rail-title]', left)
+			if (label) label.textContent = `ACT ${act}`
+			if (titleEl) titleEl.textContent = title || ''
+		}
+		navDots.forEach(dot => {
+			dot.classList.toggle('is-active', dot.getAttribute('data-act-jump') === act)
+		})
+		acts.forEach(a => a.classList.toggle('is-in-view', a.dataset.act === act))
+	}
+
+	const sync = () => {
+		ticking = false
+		const y = window.scrollY || 0
+		const max = document.documentElement.scrollHeight - window.innerHeight
+		const p = max > 0 ? y / max : 0
+
+		if (bar) bar.style.transform = `scaleX(${clamp(p, 0, 1)})`
+
+		const scrolled = y > 12
+		if (topbar && scrolled !== lastScrolled) {
+			lastScrolled = scrolled
+			topbar.classList.toggle('is-scrolled', scrolled)
+		}
+
+		if (!acts.length) return
+
+		const mid = window.innerHeight * 0.42
+		let current = null
+		for (let n = 0; n < acts.length; n++) {
+			const r = acts[n].getBoundingClientRect()
+			if (r.top <= mid && r.bottom >= mid) {
+				current = acts[n]
+				break
+			}
+		}
+
+		const first = acts[0].getBoundingClientRect()
+		const last = acts[acts.length - 1].getBoundingClientRect()
+		const inStory =
+			first.top < window.innerHeight * 0.85 && last.bottom > window.innerHeight * 0.15
+
+		if (nav && inStory !== lastInStory) {
+			lastInStory = inStory
+			nav.classList.toggle('is-on', inStory)
+		}
+
+		if (!current) {
+			if (lastAct) {
+				lastAct = ''
+				rails.forEach(r => r.classList.remove('is-on'))
+			}
+			return
+		}
+
+		rails.forEach(r => r.classList.add('is-on'))
+		setRail(current.dataset.act || '', current.dataset.actTitle || '')
+	}
+
+	const onScroll = () => {
+		document.body.classList.add('is-scrolling')
+		clearTimeout(scrollEndTimer)
+		scrollEndTimer = window.setTimeout(() => {
+			document.body.classList.remove('is-scrolling')
+		}, 120)
+
+		if (ticking) return
+		ticking = true
+		requestAnimationFrame(sync)
+	}
+
+	navDots.forEach(dot => {
+		dot.addEventListener('click', () => {
+			const id = dot.getAttribute('data-act-jump')
+			const target = acts.find(a => a.dataset.act === id)
+			if (!target) return
+			target.scrollIntoView({
+				behavior: prefersReducedMotion ? 'auto' : 'smooth',
+				block: 'start',
+			})
+		})
+	})
+
+	if (bar) {
+		bar.style.transformOrigin = 'left center'
+		bar.style.width = '100%'
+		bar.style.transform = 'scaleX(0)'
+	}
+
+	sync()
+	window.addEventListener('scroll', onScroll, { passive: true })
+	window.addEventListener('resize', onScroll, { passive: true })
+}
+
+function initMobileNav() {
+	const toggle = qs('[data-nav-toggle]')
+	const nav = qs('[data-nav]')
+	if (!toggle || !nav) return
+
+	const setOpen = open => {
+		nav.classList.toggle('is-open', open)
+		toggle.setAttribute('aria-expanded', open ? 'true' : 'false')
+		toggle.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню')
+		const label = qs('.nav-toggle__label', toggle)
+		if (label) label.textContent = open ? 'Закрыть' : 'Меню'
+	}
+
+	toggle.addEventListener('click', e => {
+		e.stopPropagation()
+		setOpen(!nav.classList.contains('is-open'))
+	})
+	nav.addEventListener('click', e => {
+		if (e.target?.closest?.('a')) setOpen(false)
+	})
+	document.addEventListener('click', e => {
+		if (!nav.classList.contains('is-open')) return
+		if (e.target?.closest?.('[data-nav], [data-nav-toggle]')) return
+		setOpen(false)
+	})
+	window.addEventListener('keydown', e => {
+		if (e.key === 'Escape') setOpen(false)
+	})
+}
+
+initSmoothAnchors()
+initDeletedMessagesDemo()
+initLatestApkDownload()
+initVibePanel()
+initReveals()
+initSplitHeadline()
+initStepCycle()
+initScrollSystem()
+initMobileNav()
+initCursorAura()
+initCardGlow()
+initSoftMagnetic()
+
+function initCursorAura() {
+	const aura = qs('[data-cursor-aura]')
+	if (!aura || prefersReducedMotion || isCoarse) return
+
+	let x = -9999
+	let y = -9999
+	let cx = x
+	let cy = y
+	let raf = 0
+
+	const loop = () => {
+		cx += (x - cx) * 0.14
+		cy += (y - cy) * 0.14
+		aura.style.transform = `translate3d(${cx}px, ${cy}px, 0)`
+		if (Math.abs(x - cx) > 0.5 || Math.abs(y - cy) > 0.5) {
+			raf = requestAnimationFrame(loop)
+		} else {
+			raf = 0
+		}
+	}
+
+	window.addEventListener(
+		'pointermove',
+		e => {
+			x = e.clientX
+			y = e.clientY
+			aura.classList.add('is-on')
+			if (!raf) raf = requestAnimationFrame(loop)
+		},
+		{ passive: true },
+	)
+
+	window.addEventListener(
+		'pointerleave',
+		() => aura.classList.remove('is-on'),
+		{ passive: true },
+	)
+}
+
+function initCardGlow() {
+	if (prefersReducedMotion || isCoarse) return
+	qsa('.story .card, .card').forEach(card => {
+		let frame = 0
+		card.addEventListener(
+			'pointermove',
+			e => {
+				if (document.body.classList.contains('is-scrolling')) return
+				if (frame) return
+				frame = requestAnimationFrame(() => {
+					frame = 0
+					const r = card.getBoundingClientRect()
+					card.style.setProperty('--mx', `${e.clientX - r.left}px`)
+					card.style.setProperty('--my', `${e.clientY - r.top}px`)
+				})
+			},
+			{ passive: true },
+		)
+	})
+}
+
+function initSoftMagnetic() {
+	if (prefersReducedMotion || isCoarse) return
+	qsa('[data-magnetic]').forEach(btn => {
+		btn.addEventListener('pointermove', e => {
+			if (document.body.classList.contains('is-scrolling')) return
+			const r = btn.getBoundingClientRect()
+			const x = e.clientX - (r.left + r.width / 2)
+			const y = e.clientY - (r.top + r.height / 2)
+			btn.style.transform = `translate(${x * 0.12}px, ${y * 0.12}px)`
+		})
+		btn.addEventListener('pointerleave', () => {
+			btn.style.transform = ''
+		})
+	})
+}
