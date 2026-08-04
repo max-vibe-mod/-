@@ -4,6 +4,10 @@ const RELEASES_LATEST = `https://api.github.com/repos/${REPO}/releases/latest`
 const prefersReducedMotion =
 	window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches ?? false
 const isCoarse = window.matchMedia?.('(pointer: coarse)')?.matches ?? false
+const isLite =
+	document.documentElement.classList.contains('is-lite') ||
+	prefersReducedMotion ||
+	isCoarse
 
 function qs(sel, root = document) {
 	return root.querySelector(sel)
@@ -117,21 +121,21 @@ function initVibePanel() {
 	if (!root || !phone || !feed) return
 
 	const lines = [
-		{ text: 'прочитал… и никто не узнал', side: 'out' },
-		{ text: 'всегда офлайн 👻', side: 'in' },
+		{ text: 'прочитал тихо… тестово доработали', side: 'out' },
+		{ text: 'сторис без отметки ✨', side: 'in' },
 		{ text: 'это удалили, но у тебя осталось', side: 'out', ghost: true, deleted: true },
-		{ text: '@pic котики', side: 'in' },
-		{ text: 'сторис без отметки ✨', side: 'out' },
 		{ text: 'ссылка проверена — ок', side: 'in' },
+		{ text: 'звук TG при отправке ♪', side: 'out' },
+		{ text: 'аналитика ещё тише', side: 'in' },
 		{ text: 'печатает… никому не светит', side: 'out' },
 		{ text: 'маскировка под MAX', side: 'in' },
 	]
 	const statuses = [
 		'всегда офлайн',
 		'тихо читает…',
-		'без «печатает»',
 		'сторис инкогнито',
-		'вайб 4.0.0',
+		'ссылки под контролем',
+		'вайб 4.1.1',
 	]
 
 	let i = 0
@@ -156,7 +160,7 @@ function initVibePanel() {
 		}
 
 		feed.appendChild(bubble)
-		while (feed.children.length > 3) feed.firstElementChild?.remove()
+		while (feed.children.length > (isLite ? 2 : 3)) feed.firstElementChild?.remove()
 		if (status) status.textContent = statuses[i % statuses.length]
 	}
 
@@ -164,7 +168,7 @@ function initVibePanel() {
 
 	const start = () => {
 		if (prefersReducedMotion || timer) return
-		timer = window.setInterval(pushBubble, 2800)
+		timer = window.setInterval(pushBubble, isLite ? 4200 : 2800)
 	}
 	const stop = () => {
 		if (!timer) return
@@ -184,7 +188,7 @@ function initVibePanel() {
 		)
 		io.observe(root)
 
-		if (!isCoarse) {
+		if (!isLite && !isCoarse) {
 			let frame = 0
 			root.addEventListener(
 				'pointermove',
@@ -224,7 +228,7 @@ function initSmoothAnchors() {
 			if (!el) return
 			e.preventDefault()
 			el.scrollIntoView({
-				behavior: prefersReducedMotion ? 'auto' : 'smooth',
+				behavior: prefersReducedMotion || isLite ? 'auto' : 'smooth',
 				block: 'start',
 			})
 			history.pushState({}, '', href)
@@ -235,7 +239,7 @@ function initSmoothAnchors() {
 function initReveals() {
 	const nodes = qsa('[data-reveal]')
 	if (!nodes.length) return
-	if (prefersReducedMotion) {
+	if (prefersReducedMotion || isLite) {
 		nodes.forEach(n => n.classList.add('is-in'))
 		return
 	}
@@ -256,6 +260,8 @@ function initReveals() {
 function initSplitHeadline() {
 	const lines = qsa('[data-split]')
 	if (!lines.length) return
+
+	if (isLite || prefersReducedMotion) return
 
 	lines.forEach(line => {
 		const text = line.textContent ?? ''
@@ -297,7 +303,7 @@ function initStepCycle() {
 		})
 	}
 	activate(0)
-	if (prefersReducedMotion) return
+	if (prefersReducedMotion || isLite) return
 
 	const start = () => {
 		if (timer) return
@@ -346,6 +352,7 @@ function initScrollSystem() {
 	let lastAct = ''
 	let lastInStory = false
 	let lastScrolled = false
+	let lastBar = -1
 
 	const setRail = (act, title) => {
 		if (act === lastAct) return
@@ -368,8 +375,12 @@ function initScrollSystem() {
 		const y = window.scrollY || 0
 		const max = document.documentElement.scrollHeight - window.innerHeight
 		const p = max > 0 ? y / max : 0
+		const rounded = Math.round(p * 100) / 100
 
-		if (bar) bar.style.transform = `scaleX(${clamp(p, 0, 1)})`
+		if (bar && rounded !== lastBar) {
+			lastBar = rounded
+			bar.style.transform = `scaleX(${clamp(p, 0, 1)})`
+		}
 
 		const scrolled = y > 12
 		if (topbar && scrolled !== lastScrolled) {
@@ -377,7 +388,7 @@ function initScrollSystem() {
 			topbar.classList.toggle('is-scrolled', scrolled)
 		}
 
-		if (!acts.length) return
+		if (!acts.length || isLite) return
 
 		const mid = window.innerHeight * 0.42
 		let current = null
@@ -412,11 +423,13 @@ function initScrollSystem() {
 	}
 
 	const onScroll = () => {
-		document.body.classList.add('is-scrolling')
-		clearTimeout(scrollEndTimer)
-		scrollEndTimer = window.setTimeout(() => {
-			document.body.classList.remove('is-scrolling')
-		}, 120)
+		if (!isLite) {
+			document.body.classList.add('is-scrolling')
+			clearTimeout(scrollEndTimer)
+			scrollEndTimer = window.setTimeout(() => {
+				document.body.classList.remove('is-scrolling')
+			}, 140)
+		}
 
 		if (ticking) return
 		ticking = true
@@ -429,7 +442,7 @@ function initScrollSystem() {
 			const target = acts.find(a => a.dataset.act === id)
 			if (!target) return
 			target.scrollIntoView({
-				behavior: prefersReducedMotion ? 'auto' : 'smooth',
+				behavior: prefersReducedMotion || isLite ? 'auto' : 'smooth',
 				block: 'start',
 			})
 		})
@@ -475,19 +488,6 @@ function initMobileNav() {
 		if (e.key === 'Escape') setOpen(false)
 	})
 }
-
-initSmoothAnchors()
-initDeletedMessagesDemo()
-initLatestApkDownload()
-initVibePanel()
-initReveals()
-initSplitHeadline()
-initStepCycle()
-initScrollSystem()
-initMobileNav()
-initCursorAura()
-initCardGlow()
-initSoftMagnetic()
 
 function initCursorAura() {
 	const aura = qs('[data-cursor-aura]')
@@ -552,15 +552,39 @@ function initCardGlow() {
 function initSoftMagnetic() {
 	if (prefersReducedMotion || isCoarse) return
 	qsa('[data-magnetic]').forEach(btn => {
-		btn.addEventListener('pointermove', e => {
-			if (document.body.classList.contains('is-scrolling')) return
-			const r = btn.getBoundingClientRect()
-			const x = e.clientX - (r.left + r.width / 2)
-			const y = e.clientY - (r.top + r.height / 2)
-			btn.style.transform = `translate(${x * 0.12}px, ${y * 0.12}px)`
-		})
+		let frame = 0
+		btn.addEventListener(
+			'pointermove',
+			e => {
+				if (document.body.classList.contains('is-scrolling')) return
+				if (frame) return
+				frame = requestAnimationFrame(() => {
+					frame = 0
+					const r = btn.getBoundingClientRect()
+					const x = e.clientX - (r.left + r.width / 2)
+					const y = e.clientY - (r.top + r.height / 2)
+					btn.style.transform = `translate(${x * 0.12}px, ${y * 0.12}px)`
+				})
+			},
+			{ passive: true },
+		)
 		btn.addEventListener('pointerleave', () => {
 			btn.style.transform = ''
 		})
 	})
+}
+
+initSmoothAnchors()
+initDeletedMessagesDemo()
+initLatestApkDownload()
+initVibePanel()
+initReveals()
+initSplitHeadline()
+initStepCycle()
+initScrollSystem()
+initMobileNav()
+if (!isLite) {
+	initCursorAura()
+	initCardGlow()
+	initSoftMagnetic()
 }
