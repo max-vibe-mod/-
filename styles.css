@@ -2125,19 +2125,18 @@ button:focus-visible {
   border: 0;
 }
 
-/* Текст для роботов/ИИ: в DOM есть, на экране не занимает место */
-.seo-crawl {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: normal;
-  border: 0;
+/* Crawl-блоки: скрыты даже если CSS не загрузился (есть атрибут hidden) */
+.seo-crawl,
+.seo-crawl[hidden] {
+  display: none !important;
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  border: 0 !important;
 }
 
 .story--compare {
@@ -2191,6 +2190,16 @@ button:focus-visible {
 
 .seo-page {
   min-height: 100%;
+  background:
+    radial-gradient(ellipse 70% 50% at 20% -10%, rgba(255, 95, 222, 0.16), transparent 55%),
+    radial-gradient(ellipse 50% 40% at 90% 20%, rgba(203, 180, 255, 0.12), transparent 60%),
+    linear-gradient(180deg, #1f1828 0%, #1a1522 50%, #16121c 100%);
+  color: #fff;
+}
+
+.seo-page .topbar {
+  position: sticky;
+  top: 0;
 }
 
 .seo-page__main {
@@ -2202,9 +2211,11 @@ button:focus-visible {
 .seo-page__card {
   padding: 28px 24px;
   border-radius: 28px;
-  border: 1px solid rgba(255, 200, 240, 0.14);
-  background: linear-gradient(180deg, rgba(255, 230, 245, 0.08), rgba(32, 20, 40, 0.22));
-  box-shadow: 0 24px 70px rgba(50, 14, 42, 0.24);
+  border: 1px solid rgba(255, 200, 240, 0.16);
+  background:
+    radial-gradient(600px 280px at 80% -20%, rgba(255, 59, 212, 0.18), transparent 55%),
+    linear-gradient(180deg, rgba(255, 230, 245, 0.09), rgba(32, 20, 40, 0.35));
+  box-shadow: 0 24px 70px rgba(50, 14, 42, 0.28);
 }
 
 .seo-page__card .h1 {
@@ -2217,6 +2228,10 @@ button:focus-visible {
   font-size: clamp(22px, 3vw, 28px);
 }
 
+.seo-page__card .lead {
+  color: rgba(255, 236, 248, 0.85);
+}
+
 .seo-list {
   margin: 0 0 8px;
   padding-left: 1.2em;
@@ -2226,6 +2241,14 @@ button:focus-visible {
 
 .seo-list li + li {
   margin-top: 6px;
+}
+
+.seo-list a,
+.seo-page__card .p a,
+.timeline a {
+  color: #ff9de8;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .seo-page__cta {
@@ -2250,36 +2273,56 @@ button:focus-visible {
 .timeline {
   list-style: none;
   margin: 0 0 24px;
-  padding: 0;
+  padding: 0 0 0 16px;
   display: grid;
-  gap: 14px;
+  gap: 12px;
+  border-left: 2px solid rgba(255, 59, 212, 0.28);
 }
 
 .timeline__item {
   position: relative;
-  padding: 14px 16px 14px 18px;
-  border-radius: 16px;
+  padding: 16px 18px;
+  border-radius: 18px;
   border: 1px solid rgba(255, 200, 240, 0.14);
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.28);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.timeline__item::before {
+  content: "";
+  position: absolute;
+  left: -22px;
+  top: 22px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #c4b5fd, #ff3bd4);
+  box-shadow: 0 0 12px rgba(255, 59, 212, 0.55);
 }
 
 .timeline__item--now {
-  border-color: rgba(255, 59, 212, 0.35);
-  background: rgba(255, 59, 212, 0.08);
+  border-color: rgba(255, 59, 212, 0.4);
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.18), rgba(255, 59, 212, 0.12));
 }
 
 .timeline__date {
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   font-family: "Unbounded", system-ui, sans-serif;
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.04em;
-  color: rgba(255, 160, 230, 0.9);
+  color: rgba(255, 160, 230, 0.95);
 }
 
 .timeline__item .p {
   margin: 0;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.55;
+}
+
+.seo-page .faq {
+  margin-top: 8px;
 }
 
 @media (max-width: 720px) {
@@ -2294,6 +2337,15 @@ button:focus-visible {
 
   .seo-page__card {
     padding: 20px 16px;
+    border-radius: 22px;
+  }
+
+  .timeline {
+    padding-left: 14px;
+  }
+
+  .timeline__item::before {
+    left: -20px;
   }
 }
 
